@@ -1,7 +1,6 @@
-local mui = require( "libs.material-ui.ui" )
-
 local composer = require( "composer" )
- 
+local mui = require( "materialui.mui" )
+
 local scene = composer.newScene()
  
 -- -----------------------------------------------------------------------------------
@@ -21,7 +20,8 @@ function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
- 
+
+    mui.init()
 end
  
  
@@ -33,23 +33,38 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
- 
+        mui.newNavbar({
+            name = "navbar_demo",
+            --width = mui.getScaleVal(500), -- defaults to display.contentWidth
+            height = mui.getScaleVal(70),
+            left = 0,
+            top = 0,
+            fillColor = { 0.63, 0.81, 0.181 },
+            activeTextColor = { 1, 1, 1, 1 },
+            padding = mui.getScaleVal(10),
+        })
+
+        mui.newIconButton({
+            name = "hello_btn",
+            text = "Hello",
+            width = mui.getScaleVal(50),
+            height = mui.getScaleVal(50),
+            x = mui.getScaleVal(0),
+            y = mui.getScaleVal(0),
+            font = native.systemFont,
+            textColor = { 1, 1, 1 },
+            textAlign = "center",
+        })
+
+        mui.attachToNavBar( "navbar_demo", {
+            widgetName = "hello_btn",
+            widgetType = "IconButton",
+            align = "left",  -- left | right supported
+        })
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        local Character = require("Character")
-
-        local character = Character.new()
-
-        character.x = display.contentWidth/2
-        character.y = display.contentHeight/2
-
-        --character:idle()
-        --character:fight()
-
-        character:act("walk")
-
-        sceneGroup:insert(character)
-        
+ 
     end
 end
  
@@ -75,7 +90,7 @@ function scene:destroy( event )
  
     local sceneGroup = self.view
     -- Code here runs prior to the removal of scene's view
- 
+    mui.destroy() 
 end
  
  
