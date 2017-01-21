@@ -55,16 +55,16 @@ function scene:show( event )
         })
 
         distList = {
-            {-1, -1, -1, -1, -1, -1,  -1, -1, -1,  -1, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, 0,  -1, -1, -1, -1, 0, -1, -1, -1},
-            {-1, -1, -1, 0,  0,  0,  -1, 0,  0,  0, 0, 0, 0, -1, -1, -1},
-            {-1, -1, -1, 0, -1, 0,  -1, 0,  -1, 0, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, 0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, 0,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, 0,  0,  0,  0,  0,  0,  0, 0, 0, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, 0, -1, -1, -1, -1},
-            {-1, -1, -1, 0,  0,  0,  0,  0,  0,  0, 0, 0, -1, -1, -1, -1},
-            {-1, -1, -1, 0,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, -1,  0, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0, -1,  0,  0,  0,  0,  0,  0, -1, -1, -1},
+            {-1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1,  0, -1, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1},
+            {-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         }
 
         for i = 1, config.boardHSize do
@@ -92,23 +92,23 @@ function scene:show( event )
 
         -- init objs
 
-
-        --[[
-        local fat = FatGuy.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 2,
-            j = 2,
-        })
-
         local wifi = Wifi.new({
             universe = scene.universe,
             map = scene.map,
-            i = 2,
-            j = 3,
-            areas = {Wifi.AREA_LEFT, Wifi.AREA_RIGHT},
+            i = 8,
+            j = 11,
+            areas = {Wifi.AREA_LEFT},
         })
 
+        
+        local fat = FatGuy.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 7,
+            j = 10,
+        })
+
+        --[[
         local photoSpot = PhotoSpot.new({
             universe = scene.universe,
             map = scene.map,
@@ -131,8 +131,6 @@ function scene:show( event )
         })
         ]]
 
-
-
         self.char = NewCharacter.new({
             universe = scene.universe,
             map = scene.map,
@@ -147,7 +145,7 @@ function scene:show( event )
         scene.universe.y = config.contentCenterY
         sceneGroup:insert(scene.universe)
 
-        --wifi:showGrid()
+        wifi:showGrid()
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
@@ -182,7 +180,6 @@ end
  
 
 function scene:action( event )
-
     if event.phase == "walk" and event.dir == "up" then
         self.char:toUp()
     elseif event.phase == "walk" and event.dir == "down" then
@@ -191,8 +188,10 @@ function scene:action( event )
         self.char:toLeft()
     elseif event.phase == "walk" and event.dir == "right" then
         self.char:toRight()
-    elseif event.phase == "active" then
-        self.char:toActive()
+    elseif event.phase == "rotate" and event.dir == "clockwise" then
+        self.char:toRotateWifi(1)
+    elseif event.phase == "rotate" and event.dir == "anticlockwise" then
+        self.char:toRotateWifi(-1)
     end
 end
  

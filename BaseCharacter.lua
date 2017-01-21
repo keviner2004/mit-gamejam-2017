@@ -27,11 +27,12 @@ Character.new = function (options)
         self.control = Control.new(character)
     end
 
-    function character:dispathcActionEvent(phase, dir)
+    function character:dispathcActionEvent(phase, dir, value)
         self:dispatchEvent({
             name = "action",
             phase = phase,
             dir = dir,
+            value = value
         })
     end
 
@@ -55,8 +56,8 @@ Character.new = function (options)
         self:dispathcActionEvent("walk", "right")
     end
 
-    function character:onActive()
-        self:dispathcActionEvent("active", nil)
+    function character:onRotateWifi(dir)
+        self:dispathcActionEvent("rotate", dir)
     end
 
     function character:hasWifi()

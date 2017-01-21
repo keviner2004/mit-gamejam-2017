@@ -3,7 +3,7 @@ local config = {}
 config.MODE_DEBUG = 1
 config.MODE_DEMO = 2
 
-config.mode = config.MODE_DEBUG
+config.mode = config.MODE_DEMO
 
 config.contentWidth = display.contentWidth
 config.contentHeight = display.contentHeight
