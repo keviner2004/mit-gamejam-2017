@@ -112,6 +112,35 @@ Wifi.new = function(options)
 		return false
 	end
 
+	function wifi:showGrid()
+		if not self.affectedAreas then
+			return
+		end
+		for i = 1, #self.affectedAreas do
+			local indicator = display.newRect(0, 0, 100, 100)
+			indicator.fill = {0,0,1}
+			
+			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
+				self.map:putOn(indicator, self.i - 1, self.j - 1, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_TOP then
+				self.map:putOn(indicator, self.i, self.j - 1, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
+				self.map:putOn(indicator, self.i + 1, self.j - 1, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_RIGHT then
+				self.map:putOn(indicator, self.i + 1, self.j, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTBTM then
+				self.map:putOn(indicator, self.i + 1, self.j + 1, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_BTM then
+				self.map:putOn(indicator, self.i, self.j + 1, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_LEFTBTM then
+				self.map:putOn(indicator, self.i - 1, self.j + 1, true)
+			elseif self.affectedAreas[i] == Wifi.AREA_LEFT then
+				self.map:putOn(indicator, self.i - 1, self.j, true)
+			end
+			
+		end
+	end
+
 	return wifi
 end
 
