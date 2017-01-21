@@ -9,10 +9,75 @@ local BaseCharacter = require("BaseCharacter")
 
 Character.new = function (options)
     local character = BaseCharacter.new(options)
-    local rect = display.newRect(0, 0, 100, 100)
-    rect.fill = {0.5, 0.5, 0.5}
-    character:insert(rect)
     character:setControl()
+
+    character:setSpriteTag("new_character")
+    character:setWalkUpAnimation({
+        "back/walking/1",
+        "back/walking/2",
+        "back/walking/3",
+        "back/walking/4",
+        "back/walking/5",
+    })
+
+    character:setWalkDownAnimation({
+        "front/walking/1",
+        "front/walking/2",
+        "front/walking/3",
+        "front/walking/4",
+        "front/walking/5",
+    })
+
+    character:setWalkLeftAnimation({
+        "horizon/walking/1",
+        "horizon/walking/2",
+        "horizon/walking/3",
+        "horizon/walking/4",
+        "horizon/walking/5",
+        "horizon/walking/6",
+        "horizon/walking/7",
+        "horizon/walking/8",
+
+    })
+
+    character:setIdleUpAnimation({
+        "back/normal/1",
+    })
+
+    character:setIdleDownAnimation({
+        "up/normal/1",
+    })
+
+    character:setIdleLeftAnimation({
+        "horizon/normal/1",
+    })
+
+
+    character:setPhotoUpAnimation({
+        "back/photographing/1",
+    })
+
+    character:setPhotoDownAnimation({
+        "up/photographing/1",
+    })
+
+    character:setPhotoLeftAnimation({
+        "horizon/photographing/1",
+    })
+
+    character:setSelfUpAnimation({
+        "back/self/1",
+    })
+
+    character:setSelfDownAnimation({
+        "up/self/1",
+    })
+
+    character:setSelfLeftAnimation({
+        "horizon/self/1",
+    })
+
+    character:genAnimation()
 
     function character:getObj(i, j)
     	return self.map.grid[i][j].obj
@@ -96,7 +161,19 @@ Character.new = function (options)
             end
         end
     end)
-
+    ----[[
+    character:addEventListener("movedone", function(event)
+        if character.facing == "down" then
+            character:idleDown()
+        elseif character.facing == "up" then
+            character:idleUp()
+        elseif character.facing == "left" then
+            character:idleLeft()
+        elseif character.facing == "right" then
+            character:idleRight()
+        end
+    end)
+    ----]]
     return character
 end
 

@@ -24,6 +24,9 @@ MoveObject.new = function(options)
 
 	local onComplete = function(event)
 		obj.transLock = false
+		obj:dispatchEvent({
+			name = "movedone"
+		})
 	end
 
 	function obj:dispatchMoveEvent()
@@ -39,7 +42,7 @@ MoveObject.new = function(options)
 			x = x,
 			y = y,
 			onComplete = onComplete,
-			time = 100,
+			time = 500,
 		})
 		self.moveCount = self.moveCount + 1
 		self:dispatchMoveEvent()
@@ -112,7 +115,6 @@ MoveObject.new = function(options)
 		else
 			return false
 		end
-
 	end
 
 	return obj
