@@ -12,6 +12,6 @@ config.contentCenterY = display.contentCenterY
 
 -- Board
 config.boardWSize = 16
-config.boardHSize = 9
+config.boardHSize = 10
 
 return config

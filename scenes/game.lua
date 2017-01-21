@@ -42,8 +42,11 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        config.currentLevel = 1
+
         scene.universe = display.newGroup()
 
+        -- set up map
         scene.map = GridContainer.new({
             cols = config.boardWSize,
             rows = config.boardHSize,
@@ -51,13 +54,46 @@ function scene:show( event )
             maxH = config.contentHeight,
         })
 
+        distList = {
+            {-1, -1, -1, -1, -1, -1,  -1, -1, -1,  -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, 0,  -1, -1, -1, -1, 0, -1, -1, -1},
+            {-1, -1, -1, 0,  0,  0,  -1, 0,  0,  0, 0, 0, 0, -1, -1, -1},
+            {-1, -1, -1, 0, -1, 0,  -1, 0,  -1, 0, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, 0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, 0,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, 0,  0,  0,  0,  0,  0,  0, 0, 0, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, 0, -1, -1, -1, -1},
+            {-1, -1, -1, 0,  0,  0,  0,  0,  0,  0, 0, 0, -1, -1, -1, -1},
+            {-1, -1, -1, 0,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        }
+
         for i = 1, config.boardHSize do
             for j = 1, config.boardWSize do
+                scene.map.grid[i][j].dist = distList[i][j]
                 scene.map.grid[i][j].wifiCount = 0
-                scene.map.grid[i][j].dist = 0
+                if config.mode == config.MODE_DEBUG then    
+                    local text = display.newText({
+                        text = '('..tostring(i)..', '..tostring(j)..') '..tostring(scene.map.grid[i][j].dist),
+                        font = native.systemFont,
+                        fontSize = 20,
+                    })
+                    scene.map:insertAt(text, i, j)
+                end
             end
         end
 
+        -- add background
+        scene.bgImage = display.newImage('res/level1.png')
+        scene.bgImage.xScale = 120/100
+        scene.bgImage.yScale = 120/100
+        scene.bgImage.y = scene.map.gridH/2
+        scene.universe:insert(scene.bgImage)
+        scene.bgImage:toBack()
+
+        -- init objs
+
+
+        --[[
         local fat = FatGuy.new({
             universe = scene.universe,
             map = scene.map,
@@ -93,28 +129,17 @@ function scene:show( event )
             i = 1,
             j = 3,
         })
+        ]]
+
+
 
         self.char = NewCharacter.new({
             universe = scene.universe,
             map = scene.map,
-            i = 2,
-            j = 1,
+            i = 10,
+            j = 4,
         })
         self.char:addEventListener( "action", scene )
-
-        for i = 1, config.boardHSize do
-            for j = 1, config.boardWSize do
-
-                if config.mode == config.MODE_DEBUG then    
-                    local text = display.newText({
-                        text = '('..tostring(i)..', '..tostring(j)..') '..tostring(scene.map.grid[i][j].dist),
-                        font = native.systemFont,
-                        fontSize = 20,
-                    })
-                    scene.map:insertAt(text, i, j)
-                end
-            end
-        end
 
         scene.universe:insert(scene.map)
 
@@ -122,7 +147,7 @@ function scene:show( event )
         scene.universe.y = config.contentCenterY
         sceneGroup:insert(scene.universe)
 
-        wifi:showGrid()
+        --wifi:showGrid()
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

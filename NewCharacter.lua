@@ -16,6 +16,10 @@ Character.new = function (options)
     	return self.map.grid[i][j].obj
     end
 
+    function character:getBg(i, j)
+    	return self.map.grid[i][j].bg
+    end
+
     function character:toActive()
     	-- rotate wifi
     	if self.facing == "down" and 
@@ -45,12 +49,13 @@ Character.new = function (options)
 		end
 
 		-- else
-		if self.map[self.i][self.j].bg then
-			if ifself.map[self.i][self.j].bg.tag == "charge" then
+		local bg = self:getBg(self.i, self.j)
+		if bg then
+			if bg.tag == "charge" then
 
-			elseif ifself.map[self.i][self.j].bg.tag == "photo" then
+			elseif bg.tag == "photo" then
 
-			elseif ifself.map[self.i][self.j].bg.tag == "share" then
+			elseif bg.tag == "share" then
 
 			end
 		end
