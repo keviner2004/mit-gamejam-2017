@@ -1,6 +1,8 @@
 local composer = require( "composer" )
 
 local Wifi = require( "obj.wifi" )
+
+local FatGuy = require("FatGuy")
  
 local GridContainer = require( "libs.ui.GridContainer" )
 local config = require( "GameConfig" )
@@ -48,6 +50,9 @@ function scene:show( event )
         for i = 1, config.boardHSize do
             for j = 1, config.boardWSize do
                 scene.map.grid[i][j].wifiCount = 0
+
+
+
                 if config.mode == config.MODE_DEBUG then    
                     local text = display.newText({
                         text = '('..tostring(i)..', '..tostring(j)..')',
@@ -59,9 +64,16 @@ function scene:show( event )
             end
         end
 
-        local wifi = Wifi.new(scene.map, 2, 2, {2})
-        scene.map:insertAt(wifi, 2, 2)
+        local fat = FatGuy.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 2,
+            j = 2,
+        })
+
         
+
+        scene.universe:insert(fat)
 
         scene.universe:insert(scene.map)
 

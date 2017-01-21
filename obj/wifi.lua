@@ -9,49 +9,52 @@ Wifi.AREA_RIGHTTOP = 6
 Wifi.AREA_RIGHT = 7
 Wifi.AREA_RIGHTBTM = 8
 
-Wifi.new = function(map, i, j, areas)
+Wifi.new = function(options)
 	local wifi = display.newGroup()
-
-	wifi.map = map
-	wifi.affectedAreas = areas
-	wifi.i = i
-	wifi.j = j
+	local map = options and options.map
+	wifi.affectedAreas = options and options.areas
+	wifi.i = options and options.i
+	wifi.j = options and options.j
 	wifi.type = "WIFI"
+
+	map.grid[i][j].obj = wifi
+	map.grid[i][j].dist = map.grid[i][j].dist -1
+	map:insertAt(wifi, i, j)
 
 	function wifi:rotateClockwize45()
 		-- change map's wifi count
 		for i = 1, #self.affectedAreas do
 			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
-				self.map.grid[wifi.i-1][wifi.j-1].wifiCount = self.map.grid[wifi.i-1][wifi.j-1].wifiCount -1
-				self.map.grid[wifi.i-1][wifi.j].wifiCount = self.map.grid[wifi.i-1][wifi.j].wifiCount +1
+				map.grid[wifi.i-1][wifi.j-1].wifiCount = map.grid[wifi.i-1][wifi.j-1].wifiCount -1
+				map.grid[wifi.i-1][wifi.j].wifiCount = map.grid[wifi.i-1][wifi.j].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_TOP
 			elseif self.affectedAreas[i] == Wifi.AREA_TOP then
-				self.map.grid[wifi.i-1][wifi.j].wifiCount = self.map.grid[wifi.i-1][wifi.j].wifiCount -1
-				self.map.grid[wifi.i-1][wifi.j+1].wifiCount = self.map.grid[wifi.i-1][wifi.j+1].wifiCount +1
+				map.grid[wifi.i-1][wifi.j].wifiCount = map.grid[wifi.i-1][wifi.j].wifiCount -1
+				map.grid[wifi.i-1][wifi.j+1].wifiCount = map.grid[wifi.i-1][wifi.j+1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_RIGHTTOP
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
-				self.map.grid[wifi.i-1][wifi.j+1].wifiCount = self.map.grid[wifi.i-1][wifi.j+1].wifiCount -1
-				self.map.grid[wifi.i][wifi.j+1].wifiCount = self.map.grid[wifi.i][wifi.j+1].wifiCount +1
+				map.grid[wifi.i-1][wifi.j+1].wifiCount = map.grid[wifi.i-1][wifi.j+1].wifiCount -1
+				map.grid[wifi.i][wifi.j+1].wifiCount = map.grid[wifi.i][wifi.j+1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_RIGH
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHT then
-				self.map.grid[wifi.i][wifi.j+1].wifiCount = self.map.grid[wifi.i][wifi.j+1].wifiCount -1
-				self.map.grid[wifi.i+1][wifi.j+1].wifiCount = self.map.grid[wifi.i+1][wifi.j+1].wifiCount +1
+				map.grid[wifi.i][wifi.j+1].wifiCount = map.grid[wifi.i][wifi.j+1].wifiCount -1
+				map.grid[wifi.i+1][wifi.j+1].wifiCount = map.grid[wifi.i+1][wifi.j+1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_RIGHTBTM
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTBTM then
-				self.map.grid[wifi.i+1][wifi.j+1].wifiCount = self.map.grid[wifi.i+1][wifi.j+1].wifiCount -1
-				self.map.grid[wifi.i+1][wifi.j].wifiCount = self.map.grid[wifi.i+1][wifi.j].wifiCount +1
+				map.grid[wifi.i+1][wifi.j+1].wifiCount = map.grid[wifi.i+1][wifi.j+1].wifiCount -1
+				map.grid[wifi.i+1][wifi.j].wifiCount = map.grid[wifi.i+1][wifi.j].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_BTM
 			elseif self.affectedAreas[i] == Wifi.AREA_BTM then
-				self.map.grid[wifi.i+1][wifi.j].wifiCount = self.map.grid[wifi.i+1][wifi.j].wifiCount -1
-				self.map.grid[wifi.i+1][wifi.j-1].wifiCount = self.map.grid[wifi.i+1][wifi.j-1].wifiCount +1
+				map.grid[wifi.i+1][wifi.j].wifiCount = map.grid[wifi.i+1][wifi.j].wifiCount -1
+				map.grid[wifi.i+1][wifi.j-1].wifiCount = map.grid[wifi.i+1][wifi.j-1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_LEFTBTM
 			elseif self.affectedAreas[i] == Wifi.AREA_LEFTBTM then
-				self.map.grid[wifi.i+1][wifi.j-1].wifiCount = self.map.grid[wifi.i+1][wifi.j-1].wifiCount -1
-				self.map.grid[wifi.i][wifi.j-1].wifiCount = self.map.grid[wifi.i][wifi.j-1].wifiCount +1
+				map.grid[wifi.i+1][wifi.j-1].wifiCount = map.grid[wifi.i+1][wifi.j-1].wifiCount -1
+				map.grid[wifi.i][wifi.j-1].wifiCount = map.grid[wifi.i][wifi.j-1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_LEFT
 			elseif self.affectedAreas[i] == Wifi.AREA_LEFT then
-				self.map.grid[wifi.i][wifi.j-1].wifiCount = self.map.grid[wifi.i][wifi.j-1].wifiCount -1
-				self.map.grid[wifi.i-1][wifi.j-1].wifiCount = self.map.grid[wifi.i-1][wifi.j-1].wifiCount +1
+				map.grid[wifi.i][wifi.j-1].wifiCount = map.grid[wifi.i][wifi.j-1].wifiCount -1
+				map.grid[wifi.i-1][wifi.j-1].wifiCount = map.grid[wifi.i-1][wifi.j-1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_LEFTTOP
 			end
 		end
@@ -62,15 +65,14 @@ Wifi.new = function(map, i, j, areas)
 				grid.obj[funcName]()
 			end
 		end
-
-		needsForFatty(self.map.grid[wifi.i-1][wifi.j-1], "toRight")
-		needsForFatty(self.map.grid[wifi.i-1][wifi.j], "toRight")
-		needsForFatty(self.map.grid[wifi.i-1][wifi.j+1], "toDown")
-		needsForFatty(self.map.grid[wifi.i][wifi.j-1], "toDown")
-		needsForFatty(self.map.grid[wifi.i][wifi.j-1], "toLeft")
-		needsForFatty(self.map.grid[wifi.i+1][wifi.j-1], "toLeft")
-		needsForFatty(self.map.grid[wifi.i+1][wifi.j], "toUp")
-		needsForFatty(self.map.grid[wifi.i+1][wifi.j+1], "toUp")
+		needsForFatty(map.grid[wifi.i-1][wifi.j-1], "toRight")
+		needsForFatty(map.grid[wifi.i-1][wifi.j], "toRight")
+		needsForFatty(map.grid[wifi.i-1][wifi.j+1], "toDown")
+		needsForFatty(map.grid[wifi.i][wifi.j-1], "toDown")
+		needsForFatty(map.grid[wifi.i][wifi.j-1], "toLeft")
+		needsForFatty(map.grid[wifi.i+1][wifi.j-1], "toLeft")
+		needsForFatty(map.grid[wifi.i+1][wifi.j], "toUp")
+		needsForFatty(map.grid[wifi.i+1][wifi.j+1], "toUp")
 	end
 
 	function wifi:isAffected(char)
