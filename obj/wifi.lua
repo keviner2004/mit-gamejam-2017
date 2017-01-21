@@ -234,7 +234,7 @@ Wifi.new = function(options)
 				local x, y = self.indicatorGroup:contentToLocal(self.map:getAbsLoc(newi, newj))
 				local indicator = display.newRect(0, 0, 100, 100)
 				indicator.fill = {0,0,1}
-				indicator.alpha = 0.8
+				indicator.alpha = 0.3
 				self.indicatorGroup:insert(indicator)
 				indicator.x = x
 				indicator.y = y
