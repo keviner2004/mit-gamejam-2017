@@ -10,6 +10,11 @@ config.contentHeight = display.contentHeight
 config.contentCenterX = display.contentCenterX
 config.contentCenterY = display.contentCenterY
 
+config.secLimit = 450
+
+config.fontSize = 30
+config.font = native.systemFont
+
 -- Board
 config.boardWSize = 16
 config.boardHSize = 10

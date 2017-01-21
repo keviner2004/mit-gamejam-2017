@@ -32,6 +32,9 @@ Control.new = function (target)
             elseif keyName == "q" then
                 spacePressing = false
                 target:onRotateWifi("anticlockwise")
+            elseif keyName == "space" then
+                spacePressing = false
+                target:onActive()
             end
 
         elseif phase == "down" then

@@ -96,8 +96,8 @@ function scene:show( event )
 
         -- add background
         scene.bgImage = display.newImage('res/level1.png')
-        scene.bgImage.xScale = 120/100
-        scene.bgImage.yScale = 120/100
+        --scene.bgImage.xScale = 120/100
+        --scene.bgImage.yScale = 120/100
         scene.bgImage.y = scene.map.gridH/2
         scene.universe:insert(scene.bgImage)
         scene.bgImage:toBack()
@@ -185,7 +185,6 @@ function scene:show( event )
             i = 2,
             j = 8,
         })
-
         
         ShareSpot.new({
             universe = scene.universe,
@@ -194,13 +193,22 @@ function scene:show( event )
             j = 5,
         })
 
-
         ChargeStation.new({
             universe = scene.universe,
             map = scene.map,
             i = 5,
             j = 7,
         })
+
+        remainTime = display.newText({
+            text = "123",
+            font = config.font,
+            fontSize = config.fontSize,
+        })
+        scene.universe:insert(remainTime)
+        remainTime.y = remainTime.y - config.contentHeight/2 + scene.map.gridH/2
+
+        
 
         --place ui
         local battery = Battery.new()
@@ -212,7 +220,6 @@ function scene:show( event )
         local head = Head.new()
         head.x = battery.x - display.contentWidth * 0.05
         head.y = display.contentHeight * 0.05
-
 
         sceneGroup:insert(battery)
         sceneGroup:insert(head)
@@ -242,12 +249,9 @@ end
  
 -- destroy()
 function scene:destroy( event )
- 
     local sceneGroup = self.view
     -- Code here runs prior to the removal of scene's view
- 
 end
- 
 
 function scene:action( event )
     if event.phase == "walk" and event.dir == "up" then
@@ -262,6 +266,17 @@ function scene:action( event )
         self.char:toRotateWifi(1)
     elseif event.phase == "rotate" and event.dir == "anticlockwise" then
         self.char:toRotateWifi(-1)
+    elseif event.phase == "active" then
+        local bg = self.map.grid[self.char.i][self.char.j].bg
+        if bg then
+            if bg.tag == "photo" then
+                self.char:toPhoto()
+            elseif bg.tag == "charge" then
+                self.char:toCharge()
+            elseif bg.tag == "share" then
+                self.char:toShare()
+            end
+        end
     end
 end
  
