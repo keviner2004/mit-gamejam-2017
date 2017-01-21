@@ -21,15 +21,15 @@ Character.new = function (options)
     end
 
     function character:toPhoto()
-        
+        print("toPhoto")
     end
 
     function character:toShare()
-        
+       print("toShare") 
     end
 
     function character:toCharge()
-        
+        print("toCharge")
     end
 
     function character:toRotateWifi(dir)

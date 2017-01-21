@@ -89,8 +89,8 @@ function scene:show( event )
 
         -- add background
         scene.bgImage = display.newImage('res/level1.png')
-        scene.bgImage.xScale = 120/100
-        scene.bgImage.yScale = 120/100
+        --scene.bgImage.xScale = 120/100
+        --scene.bgImage.yScale = 120/100
         scene.bgImage.y = scene.map.gridH/2
         scene.universe:insert(scene.bgImage)
         scene.bgImage:toBack()
@@ -195,6 +195,8 @@ function scene:show( event )
             j = 7,
         })
 
+        local time
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
  
@@ -220,12 +222,9 @@ end
  
 -- destroy()
 function scene:destroy( event )
- 
     local sceneGroup = self.view
     -- Code here runs prior to the removal of scene's view
- 
 end
- 
 
 function scene:action( event )
     if event.phase == "walk" and event.dir == "up" then
@@ -240,6 +239,17 @@ function scene:action( event )
         self.char:toRotateWifi(1)
     elseif event.phase == "rotate" and event.dir == "anticlockwise" then
         self.char:toRotateWifi(-1)
+    elseif event.phase == "active" then
+        local bg = self.map.grid[self.char.i][self.char.j].bg
+        if bg then
+            if bg.tag == "photo" then
+                self.char:toPhoto()
+            elseif bg.tag == "charge" then
+                self.char:toCharge()
+            elseif bg.tag == "share" then
+                self.char:toShare()
+            end
+        end
     end
 end
  
