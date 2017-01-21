@@ -29,9 +29,11 @@ MoveObject.new = function(options)
 
 	local onComplete = function(event)
 		obj.transLock = false
-		obj:dispatchEvent({
-			name = "movedone"
-		})
+		if obj.dispatchEvent then
+			obj:dispatchEvent({
+				name = "movedone"
+			})
+		end
 	end
 
 	function obj:dispatchMoveEvent()

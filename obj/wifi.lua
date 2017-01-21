@@ -17,6 +17,7 @@ Wifi.new = function(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
 	wifi.indicatorGroup = display.newGroup()
+	wifi:insert(wifi.indicatorGroup)
 	wifi.dir = 1
 
 	--wifi.y = wifi.y-60

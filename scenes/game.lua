@@ -271,6 +271,9 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
+        Runtime:removeEventListener("key", self.char.control)
+        Runtime:removeEventListener("enterFrame", self)
+        self.view:remove(self.universe)
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
@@ -287,18 +290,31 @@ end
 
 local frame = -1
 
+function scene:gotoBadEnd()
+    composer.gotoScene("scenes.badend")
+end
+
+function scene:gotoGoodEnd()
+    composer.gotoScene("scenes.goodend") 
+end
+
 function scene:enterFrame()
     frame = (frame+1)%60
 
     if frame == 0 and self.remainTime > 0 then
         self.remainTime = self.remainTime -1
         self.remainTimeText.text = os.date("!%M"..":".."%S", self.remainTime)
+    elseif frame == 0 and self.remainTime == 0 then
+
     end
 end
 
 function scene:battery(event)
     print("Charge changed ", event.charge)
     self.batteryUI:setLevel(event.charge)
+    if event.charge == 1 then
+        self:gotoBadEnd()
+    end
 end
 
 function scene:action( event )
@@ -330,6 +346,7 @@ end
 
 function scene:focus( event )
     --print("Focus changed: ", event.value, " has wifi", event.hasWifi)
+
     if event.value < self.char.maxFocus * 0.25 then
         self.head:setLevel(1)
     elseif event.value < self.char.maxFocus * 0.5 then
@@ -338,6 +355,10 @@ function scene:focus( event )
         self.head:setLevel(3)
     else
         self.head:setLevel(4)
+    end
+
+    if event.value == 0 then
+        self:gotoBadEnd()
     end
 end
  
@@ -348,6 +369,7 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+
 -- -----------------------------------------------------------------------------------
 Runtime:addEventListener( "enterFrame", scene )
 

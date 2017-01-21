@@ -4,6 +4,10 @@ Control.new = function (target)
     local control = {}
 
     function control:key(event)
+        if not target.x then
+            Runtime:removeEventListener("key", self)
+            return
+        end
         print("Key detect: ", event.keyName, event.phase)
         local keyName = event.keyName
         local phase = event.phase

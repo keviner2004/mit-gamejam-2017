@@ -22,12 +22,14 @@ Character.new = function (options)
     end
 
     function character:dispathcActionEvent(phase, dir, value)
-        self:dispatchEvent({
-            name = "action",
-            phase = phase,
-            dir = dir,
-            value = value
-        })
+        if self.dispatchEvent then
+            self:dispatchEvent({
+                name = "action",
+                phase = phase,
+                dir = dir,
+                value = value
+            })
+        end
     end
 
     function character:onWalkUp()
