@@ -110,6 +110,7 @@ function scene:show( event )
 
         self.char:addEventListener( "action", self )
         self.char:addEventListener( "battery", self )
+        self.char:addEventListener( "focus", self )
 
         -- init objs
         local wifi = Wifi.new({
@@ -302,6 +303,10 @@ function scene:action( event )
             end
         end
     end
+end
+
+function scene:focus( event )
+    --print("Focus changed: ", event.value, " has wifi", event.hasWifi)
 end
  
 -- -----------------------------------------------------------------------------------

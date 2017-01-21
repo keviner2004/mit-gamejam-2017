@@ -7,6 +7,7 @@ Character.new = function (options)
     local character = MoveObject.new(options)
 
     character.map = options and options.map
+    character.maxFocus = options and options.maxFocus or 100
     character.focus = options and options.focus or 100
     character.faceValue = options and options.faceValue or 50
     character.focusOffset = options and options.focusOffset or 0.1
@@ -15,15 +16,6 @@ Character.new = function (options)
     character.animation = {}
     character.spriteTag = "character"
     character.facing = options and options.facing or "down"
-
-    function character:dispatchFocusChangeEvent()
-        if self.dispatchEvent then
-        self.dispatchEvent({
-            name = "focus",
-            value = self.focus
-        })
-        end
-    end
 
     function character:setControl()
         self.control = Control.new(character)
@@ -74,30 +66,13 @@ Character.new = function (options)
         return false
     end
 
-    function character:enterFrame(event)
-        if not self.x then
-            Runtime:removeEventListener(enterFrame)
-            return
-        end
-        if self.map and self.mapPos then
-            if not hasWifi and self.focus > 0 then
-                if self.focus - self.focusOffset > 0 then
-                    self.focus = self.focus - self.focusOffset
-                else
-                    self.focus = 0
-                end
-                self:dispatchFocusChangeEvent()
-            end
-        end
-    end
-
     function character:setSpriteTag(tag)
         self.spriteTag = tag
     end
 
     function character:setAnimation(name, frames, options)
         local time = options and options.time or 1000
-        local loopCount = options and options.loopCount or -1
+        local loopCount = options and options.loopCount or 0
         local sequence = {}
         sequence.name = name
         sequence.frames = frames

@@ -4,10 +4,10 @@ local Head = {}
 
 Head.new = function()
     local frames = {
-        "new face/4",
-        "new face/3",
-        "new face/2",
-        "new face/1",
+        "HEAD/4",
+        "HEAD/3",
+        "HEAD/2",
+        "HEAD/1",
     }
 
     local head = Sprite["ui"].newAnimation({
