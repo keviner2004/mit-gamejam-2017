@@ -35,25 +35,25 @@ Character.new = function (options)
     function character:onWalkUp()
         self.facing = "up"
         self:dispathcActionEvent("walk", "up")
-        self:walkUp()
+        --self:walkUp()
     end
 
     function character:onWalkDown()
         self.facing = "down"
         self:dispathcActionEvent("walk", "down")
-        self:walkDown()
+        --self:walkDown()
     end
 
     function character:onWalkLeft()
         self.facing = "left"
         self:dispathcActionEvent("walk", "left")
-        self:walkLeft()
+        --self:walkLeft()
     end
 
     function character:onWalkRight()
         self.facing = "right"
         self:dispathcActionEvent("walk", "right")
-        self:walkRight()
+        --self:walkRight()
     end
 
     function character:onRotateWifi(dir)

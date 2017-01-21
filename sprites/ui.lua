@@ -1,7 +1,7 @@
 --
 -- created with TexturePacker (http://www.codeandweb.com/texturepacker)
 --
--- $TexturePacker:SmartUpdate:c109591a9f5cad4aefff5d0ca7c86b22:958014cadb5e827de4f8756b6c931e89:2f9aa7ed53d9dd429372ba2a00184b66$
+-- $TexturePacker:SmartUpdate:5a099ab74b3fb5a8c9bb380d3d852f79:a4dfcd5360068a7d04be763e79f564ac:2f9aa7ed53d9dd429372ba2a00184b66$
 --
 -- local sheetInfo = require("mysheet")
 -- local myImageSheet = graphics.newImageSheet( "mysheet.png", sheetInfo:getSheet() )
@@ -165,6 +165,78 @@ SheetInfo.sheet =
             sourceY = 3,
             sourceWidth = 36,
             sourceHeight = 21
+        },
+        {
+            -- icon/card/1
+            x=466,
+            y=493,
+            width=24,
+            height=44,
+
+            sourceX = 40,
+            sourceY = 23,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- icon/card/2
+            x=466,
+            y=397,
+            width=24,
+            height=46,
+
+            sourceX = 40,
+            sourceY = 20,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- icon/card/3
+            x=466,
+            y=445,
+            width=24,
+            height=46,
+
+            sourceX = 40,
+            sourceY = 21,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- icon/heart/1
+            x=466,
+            y=575,
+            width=24,
+            height=32,
+
+            sourceX = 35,
+            sourceY = 31,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- icon/heart/2
+            x=466,
+            y=609,
+            width=24,
+            height=32,
+
+            sourceX = 35,
+            sourceY = 31,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- icon/heart/3
+            x=466,
+            y=539,
+            width=24,
+            height=34,
+
+            sourceX = 35,
+            sourceY = 29,
+            sourceWidth = 100,
+            sourceHeight = 100
         },
         {
             -- icon/new battery/1
@@ -372,8 +444,8 @@ SheetInfo.sheet =
         },
         {
             -- WIFI
-            x=466,
-            y=397,
+            x=217,
+            y=491,
             width=20,
             height=16,
 
@@ -405,24 +477,30 @@ SheetInfo.frameIndex =
     ["icon/battery/3"] = 12,
     ["icon/battery/4"] = 13,
     ["icon/battery/5"] = 14,
-    ["icon/new battery/1"] = 15,
-    ["icon/new battery/2"] = 16,
-    ["icon/new battery/3"] = 17,
-    ["icon/new battery/4"] = 18,
-    ["icon/new battery/5"] = 19,
-    ["mission paper/1"] = 20,
-    ["MISSION"] = 21,
-    ["new face/1"] = 22,
-    ["new face/2"] = 23,
-    ["new face/3"] = 24,
-    ["new face/4"] = 25,
-    ["new face/5"] = 26,
-    ["POWER/1"] = 27,
-    ["POWER/2"] = 28,
-    ["POWER/3"] = 29,
-    ["POWER/4"] = 30,
-    ["POWER/5"] = 31,
-    ["WIFI"] = 32,
+    ["icon/card/1"] = 15,
+    ["icon/card/2"] = 16,
+    ["icon/card/3"] = 17,
+    ["icon/heart/1"] = 18,
+    ["icon/heart/2"] = 19,
+    ["icon/heart/3"] = 20,
+    ["icon/new battery/1"] = 21,
+    ["icon/new battery/2"] = 22,
+    ["icon/new battery/3"] = 23,
+    ["icon/new battery/4"] = 24,
+    ["icon/new battery/5"] = 25,
+    ["mission paper/1"] = 26,
+    ["MISSION"] = 27,
+    ["new face/1"] = 28,
+    ["new face/2"] = 29,
+    ["new face/3"] = 30,
+    ["new face/4"] = 31,
+    ["new face/5"] = 32,
+    ["POWER/1"] = 33,
+    ["POWER/2"] = 34,
+    ["POWER/3"] = 35,
+    ["POWER/4"] = 36,
+    ["POWER/5"] = 37,
+    ["WIFI"] = 38,
 }
 
 function SheetInfo:getSheet()
