@@ -16,14 +16,17 @@ if mode == "zoomEven" then
 else
     if display.contentWidth * scaleH < display.pixelWidth then
         screen.top = 0
-        screen.left = (display.pixelWidth - display.contentWidth * scaleH)/2/scaleH
+        screen.left = -(display.pixelWidth - display.contentWidth * scaleH)/2/scaleH
     else
-        screen.top = (display.pixelHeight - display.contentHeight * scaleW)/2/scaleW
+        screen.top = -(display.pixelHeight - display.contentHeight * scaleW)/2/scaleW
         screen.left = 0
     end
 end
 
-print("Screen top, left ", screen.top, screen.left)
+screen.right = screen.left + display.pixelWidth / scaleH
+screen.bottom = screen.top + display.pixelHeight / scaleW
+
+print("Screen top, left ", screen.top, screen.left, screen.right, screen.bottom)
 
 return screen
 
