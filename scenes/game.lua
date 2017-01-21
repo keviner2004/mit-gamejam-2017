@@ -17,6 +17,7 @@ local sfx = require("libs.sfx")
 local Battery = require("ui.Battery")
 local Head = require("ui.Head")
 local MissionPaper = require("ui.MissionPaper")
+local WifiUI = require( "ui.Wifi" )
 
 local screen = require("libs.screen")
 local scene = composer.newScene()
@@ -248,6 +249,11 @@ function scene:show( event )
         head.x = screen.left + head.width/2
         head.y = screen.top + head.height/2
 
+        local wifiUI = WifiUI.new()
+        wifiUI.x = head.x - head.width/3
+        wifiUI.y = head.y + head.height/2.3
+
+
         battery.x = head.x + head.width/4
         battery.y = head.y + head.height/2.2
         battery:setLevel(self.char.charge)
@@ -261,6 +267,7 @@ function scene:show( event )
         sceneGroup:insert(head)
         sceneGroup:insert(missionPaper)
 
+        self.wifiUI = wifiUI
         self.batteryUI = battery
         self.head = head
 
@@ -388,6 +395,8 @@ function scene:focus( event )
     else
         self.head:setLevel(4)
     end
+    
+    self.wifiUI:setVisible(event.hasWifi)
 
     if event.value == 0 then
         self:gotoBadEnd()
