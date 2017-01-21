@@ -36,16 +36,17 @@ MoveObject.new = function(options)
 		end
 	end
 
-	function obj:dispatchMoveEvent()
+	function obj:dispatchMoveEvent(dir)
 		self:dispatchEvent({
 			name = "move",
 			count = self.moveCount,
 			i = self.i,
 			j = self.j,
+			dir = dir
 		})
 	end
 
-	function obj:moveToPos()
+	function obj:moveToPos(dir)
 		local x, y = universe:contentToLocal( self.map.grid[self.i][self.j]:localToContent(0,0) )
 		x = x + self.xOffset
 		y = y + self.yOffset
@@ -56,7 +57,7 @@ MoveObject.new = function(options)
 			time = 500,
 		})
 		self.moveCount = self.moveCount + 1
-		self:dispatchMoveEvent()
+		self:dispatchMoveEvent(dir)
 	end	
 
 	function obj:toRight()
@@ -71,7 +72,7 @@ MoveObject.new = function(options)
 		self.map.grid[self.i][self.j].obj = self
 		self.map.grid[self.i][self.j].dist = self.map.grid[self.i][self.j].dist -1
 		-- move
-		self:moveToPos()
+		self:moveToPos("right")
 	end
 
 	function obj:toDown()
@@ -86,7 +87,7 @@ MoveObject.new = function(options)
 		self.map.grid[self.i][self.j].obj = self
 		self.map.grid[self.i][self.j].dist = self.map.grid[self.i][self.j].dist -1
 		-- move
-		self:moveToPos()
+		self:moveToPos("down")
 	end
 
 	function obj:toLeft()
@@ -101,7 +102,7 @@ MoveObject.new = function(options)
 		self.map.grid[self.i][self.j].obj = self
 		self.map.grid[self.i][self.j].dist = self.map.grid[self.i][self.j].dist -1
 		-- move
-		self:moveToPos()
+		self:moveToPos("left")
 	end
 
 	function obj:toUp()
@@ -116,7 +117,7 @@ MoveObject.new = function(options)
 		self.map.grid[self.i][self.j].obj = self
 		self.map.grid[self.i][self.j].dist = self.map.grid[self.i][self.j].dist -1
 		-- move
-		self:moveToPos()
+		self:moveToPos("Up")
 	end
 
 	function obj:isUnderWifi()
