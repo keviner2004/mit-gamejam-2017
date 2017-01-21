@@ -115,6 +115,45 @@ GridContainer.new = function(options)
 		end
 	end
 
+	function g:putOn(obj, i, j, flag)
+		print(self.numRows, self.numCols, i, j)
+		if flag and (i > self.numRows or i < 0 or j > self.numCols or j < 0) then
+			print("Put Pn fail because out of bound")
+			return
+		end
+
+		if i > self.numRows then
+			i = self.numRows
+		end
+		if i < 0 then
+			i = 0
+		end
+		if j > self.numCols then
+			j = self.numCols
+		end
+		if j < 0 then
+			j = 0
+		end
+
+		if obj then
+			local t = self.grid[i][j]
+			local circle = display.newCircle(0, 0, 10)
+			t:insert(circle)
+			print("1", circle.x, circle.y)
+			print("2", circle:localToContent(0, 0))
+			local x, y = self.parent:contentToLocal(t:localToContent(0, 0))
+			obj.x = x
+			obj.y = y
+			print("Put the obj on", x, y)
+			self.parent:insert(obj)
+		end
+	end	
+
+	function g:getAbsLoc(i, j)
+		local t = self.grid[i][j]
+		return t:localToContent(0, 0)
+	end
+
 	return g
 end
 
