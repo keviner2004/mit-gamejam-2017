@@ -1,4 +1,5 @@
 local Control = require("Control")
+local Sprite = require("libs.Sprite")
 local MoveObject = require("MoveObject")
 local Character = {}
 
@@ -40,21 +41,25 @@ Character.new = function (options)
     function character:onWalkUp()
         self.facing = "up"
         self:dispathcActionEvent("walk", "up")
+        self:walkUp()
     end
 
     function character:onWalkDown()
         self.facing = "down"
         self:dispathcActionEvent("walk", "down")
+        self:walkDown()
     end
 
     function character:onWalkLeft()
         self.facing = "left"
         self:dispathcActionEvent("walk", "left")
+        self:walkLeft()
     end
 
     function character:onWalkRight()
         self.facing = "right"
         self:dispathcActionEvent("walk", "right")
+        self:walkRight()
     end
 
     function character:onRotateWifi(dir)
@@ -90,67 +95,182 @@ Character.new = function (options)
         self.spriteTag = tag
     end
 
-    function character:setAnimation(name, frames)
+    function character:setAnimation(name, frames, time)
+        if not time then
+            time = 1000
+        end
+
         local sequence = {}
         sequence.name = name
         sequence.frames = frames
+        sequence.time = time
         self.animation[#self.animation+1] = sequence
     end
 
     function character:setWalkUpAnimation(frames)
-        setAnimation("walkup", frames)
+        self:setAnimation("walkup", frames)
     end
 
-    function character:setWalkDownAnimation()
-        setAnimation("walkdown", frames)
+    function character:setWalkDownAnimation(frames)
+        self:setAnimation("walkdown", frames)
     end
 
-    function character:setWalkLeftAnimation()
-        setAnimation("idleleft", frames)
+    function character:setWalkLeftAnimation(frames)
+        self:setAnimation("walkleft", frames, 800)
     end
 
-    function character:setWalkRightAnimation()
-        setAnimation("idleright", frames)
+    function character:setWalkRightAnimation(frames)
+        self:setAnimation("walkright", frames)
     end
 
     function character:setIdleUpAnimation(frames)
-        setAnimation("idleup", frames)
+        self:setAnimation("idleup", frames)
     end
 
-    function character:setIdleDownAnimation()
-        setAnimation("idledown", frames)
+    function character:setIdleDownAnimation(frames)
+        self:setAnimation("idledown", frames)
     end
 
-    function character:setIdleLeftAnimation()
-        setAnimation("idleleft", frames)
+    function character:setIdleLeftAnimation(frames)
+        self:setAnimation("idleleft", frames)
     end
 
-    function character:setIdleRightAnimation()
-        setAnimation("idleright", frames)
+    function character:setIdleRightAnimation(frames)
+        self:setAnimation("idleright", frames)
     end
 
     function character:setOpUpAnimation(frames)
-        setAnimation("opup", frames)
+        self:setAnimation("opup", frames)
     end
 
-    function character:setOpDownAnimation()
-        setAnimation("opdown", frames)
+    function character:setOpDownAnimation(frames)
+        self:setAnimation("opdown", frames)
     end
 
-    function character:setOpLeftAnimation()
-        setAnimation("opleft", frames)
+    function character:setOpLeftAnimation(frames)
+        self:setAnimation("opleft", frames)
     end
 
-    function character:setOpRightAnimation()
-        setAnimation("opright", frames)
+    function character:setOpRightAnimation(frames)
+        self:setAnimation("opright", frames)
+    end
+
+    function character:setPhotoUpAnimation(frames)
+        self:setAnimation("photoup", frames)
+    end
+
+    function character:setPhotoDownAnimation(frames)
+        self:setAnimation("photodown", frames)
+    end
+
+    function character:setPhotoLeftAnimation(frames)
+        self:setAnimation("photoleft", frames)
+    end
+
+    function character:setPhotoRightAnimation(frames)
+        self:setAnimation("photoright", frames)
+    end
+
+    function character:setSelfUpAnimation(frames)
+        self:setAnimation("photoup", frames)
+    end
+
+    function character:setSelfDownAnimation(frames)
+        self:setAnimation("photodown", frames)
+    end
+
+    function character:setSelfLeftAnimation(frames)
+        self:setAnimation("photoleft", frames)
+    end
+
+    function character:setSelfRightAnimation(frames)
+        self:setAnimation("photoright", frames)
     end
 
     function character:genAnimation()
         self.sprite = Sprite[self.spriteTag].newAnimation(self.animation)
+        self:insert(self.sprite)
     end
 
     function character:setSequence(name)
        self.sprite:setSequence(name)
+    end
+
+    function character:idleUp()
+       self.sprite:setSequence("idleup") 
+       self.sprite:play()
+    end
+
+    function character:idleDown()
+        self.sprite:setSequence("idledown")
+        self.sprite:play()
+    end
+
+    function character:idleLeft()
+        self.sprite:setSequence("idleleft")
+        self.sprite.xScale = 1
+        self.sprite:play()
+    end
+
+    function character:idleRight()
+        self.sprite:setSequence("idleleft")
+        self.sprite.xScale = -1
+        self.sprite:play()
+    end
+
+    function character:walkUp()
+       self.sprite:setSequence("walkup") 
+       self.sprite:play()
+    end
+
+    function character:walkDown()
+       self.sprite:setSequence("walkdown") 
+       self.sprite:play()
+    end
+
+    function character:walkLeft()
+        self.sprite:setSequence("walkleft")
+        self.sprite.xScale = 1
+        self.sprite:play()
+    end
+
+    function character:walkRight()
+        print("!!!!!")
+        self.sprite:setSequence("walkleft")
+        self.sprite.xScale = -1
+        self.sprite:play()
+    end
+
+    function character:photoUp()
+
+    end
+
+    function character:photoDown()
+
+    end
+
+    function character:photoLeft()
+
+    end
+
+    function character:photoRight()
+
+    end
+
+    function character:selfPhotoTop()
+
+    end
+
+    function character:selfPhotoDown()
+
+    end
+
+    function character:selfPhotoLeft()
+
+    end
+
+    function character:selfPhotoRight()
+
     end
 
     function character:play()
