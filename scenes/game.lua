@@ -50,19 +50,19 @@ function scene:show( event )
         -- Code here runs when the scene is still off screen (but is about to come on screen)
         config.currentLevel = 1
 
-        scene.universe = display.newGroup()
-        scene.universe.x = config.contentCenterX
-        scene.universe.y = config.contentCenterY
-        sceneGroup:insert(scene.universe)
+        self.universe = display.newGroup()
+        self.universe.x = config.contentCenterX
+        self.universe.y = config.contentCenterY
+        sceneGroup:insert(self.universe)
 
         -- set up map
-        scene.map = GridContainer.new({
+        self.map = GridContainer.new({
             cols = config.boardWSize,
             rows = config.boardHSize,
             maxW = config.contentWidth,
             maxH = config.contentHeight,
         })
-        scene.universe:insert(scene.map)
+        self.universe:insert(self.map)
         
 
         distList = {
@@ -80,39 +80,37 @@ function scene:show( event )
 
         for i = 1, config.boardHSize do
             for j = 1, config.boardWSize do
-                scene.map.grid[i][j].dist = distList[i][j]
-                scene.map.grid[i][j].wifiCount = 0
+                self.map.grid[i][j].dist = distList[i][j]
+                self.map.grid[i][j].wifiCount = 0
                 if config.mode == config.MODE_DEBUG then    
                     local text = display.newText({
-                        text = '('..tostring(i)..', '..tostring(j)..') '..tostring(scene.map.grid[i][j].dist),
+                        text = '('..tostring(i)..', '..tostring(j)..') '..tostring(self.map.grid[i][j].dist),
                         font = native.systemFont,
                         fontSize = 20,
                     })
-                    scene.map:insertAt(text, i, j)
+                    self.map:insertAt(text, i, j)
                 end
             end
         end
 
         -- add background
-        scene.bgImage = display.newImage('res/level1.png')
-        --scene.bgImage.xScale = 120/100
-        --scene.bgImage.yScale = 120/100
-        scene.bgImage.y = scene.map.gridH/2
-        scene.universe:insert(scene.bgImage)
-        scene.bgImage:toBack()
+        self.bgImage = display.newImage('res/level1.png')
+        self.bgImage.y = self.map.gridH/2
+        self.universe:insert(self.bgImage)
+        self.bgImage:toBack()
 
         self.char = NewCharacter.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 10,
             j = 4,
         })
-        self.char:addEventListener( "action", scene )
+        self.char:addEventListener( "action", self )
 
         -- init objs
         local wifi = Wifi.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 8,
             j = 11,
             areas = {Wifi.AREA_LEFT},
@@ -121,8 +119,8 @@ function scene:show( event )
         wifi:setDir(7)
 
         wifi = Wifi.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 6,
             j = 5,
             areas = {Wifi.AREA_LEFTTOP},
@@ -131,8 +129,8 @@ function scene:show( event )
         wifi:setDir(8)
         
         wifi = Wifi.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 4,
             j = 5,
             areas = {Wifi.AREA_BTM},
@@ -141,8 +139,8 @@ function scene:show( event )
         wifi:setDir(5)
 
         wifi = Wifi.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 4,
             j = 9,
             areas = {Wifi.AREA_TOP},
@@ -151,63 +149,62 @@ function scene:show( event )
         wifi:setDir(1)
 
         FatGuy.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 7,
             j = 10,
         })
 
         FatGuy.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 3,
             j = 8,
         })
 
         FatGuy.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 5,
             j = 4,
         })
 
         PhotoSpot.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 9,
             j = 12,
         })
 
         PhotoSpot.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 2,
             j = 8,
         })
         
         ShareSpot.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 5,
             j = 5,
         })
 
         ChargeStation.new({
-            universe = scene.universe,
-            map = scene.map,
+            universe = self.universe,
+            map = self.map,
             i = 5,
             j = 7,
         })
 
-        remainTime = display.newText({
+        self.remainTimeText = display.newText({
             text = "123",
             font = config.font,
             fontSize = config.fontSize,
         })
-        scene.universe:insert(remainTime)
-        remainTime.y = remainTime.y - config.contentHeight/2 + scene.map.gridH/2
-
-        
+        self.universe:insert(self.remainTimeText)
+        self.remainTimeText.y = self.remainTimeText.y - config.contentHeight/2 + self.map.gridH/2
+        self.remainTime = config.timeLimit
 
         --place ui
         local battery = Battery.new()
@@ -242,6 +239,19 @@ end
 function scene:destroy( event )
     local sceneGroup = self.view
     -- Code here runs prior to the removal of scene's view
+end
+
+local frame = -1
+
+function scene:enterFrame()
+    frame = (frame+1)%60
+
+    if frame == 0 and self.remainTime > 0 then
+        self.remainTime = self.remainTime -1
+        self.remainTimeText.text = os.date("!%M"..":".."%S", self.remainTime)
+    end
+
+
 end
 
 function scene:action( event )
@@ -279,5 +289,7 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
+
+Runtime:addEventListener( "enterFrame", scene )
 
 return scene
