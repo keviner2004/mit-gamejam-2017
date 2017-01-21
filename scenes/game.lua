@@ -290,11 +290,11 @@ end
 local frame = -1
 
 function scene:gotoBadEnd()
-    
+    composer.gotoScene("scenes.badend")
 end
 
 function scene:gotoGoodEnd()
-    
+    composer.gotoScene("scenes.goodend") 
 end
 
 function scene:enterFrame()
@@ -311,6 +311,9 @@ end
 function scene:battery(event)
     print("Charge changed ", event.charge)
     self.batteryUI:setLevel(event.charge)
+    if event.charge == 1 then
+        self:gotoBadEnd()
+    end
 end
 
 function scene:action( event )
@@ -342,6 +345,9 @@ end
 
 function scene:focus( event )
     --print("Focus changed: ", event.value, " has wifi", event.hasWifi)
+    if event.value == 0 then
+        self:gotoBadEnd()
+    end
 end
  
 -- -----------------------------------------------------------------------------------
