@@ -26,10 +26,15 @@ Control.new = function (target)
             elseif keyName == "right" then
                 rightPressing = false
                 target:onWalkRight()
-            elseif keyName == "space" then
+            elseif keyName == "e" then
                 spacePressing = false
-                target:onRotateWifi()
+                target:onRotateWifi("clockwise")
+            elseif keyName == "q" then
+                spacePressing = false
+                target:onRotateWifi("anticlockwise")
             end
+
+
         elseif phase == "down" then
             if keyName == "up" then
                 upPressing = true
