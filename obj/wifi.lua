@@ -16,10 +16,12 @@ Wifi.new = function(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
 	wifi.indicatorGroup = display.newGroup()
+	wifi.dir = 1
 
 	wifi.y = wifi.y-60
 
 	function wifi:rotateClockwize45()
+		self:setDir(self.dir + 1)
 		self:hideGrid()
 		local oldAffectedAreas = {}
 		local newAffectedAreas = {}
@@ -108,6 +110,7 @@ Wifi.new = function(options)
 	end
 
 	function wifi:rotateClockwizen45()
+		self:setDir(self.dir - 1)
 		self:hideGrid()
 		local oldAffectedAreas = {}
 		local newAffectedAreas = {}
@@ -274,6 +277,12 @@ Wifi.new = function(options)
 	end
 
 	function wifi:setDir(dir)
+		if dir > 8 then
+			dir = 1
+		elseif dir < 1 then
+			dir = 8
+		end
+		self.dir = dir
 		self.sprite:setSequence(tostring(dir))
 	end
 
@@ -331,6 +340,7 @@ Wifi.new = function(options)
 	})
 
 	wifi:insert(wifi.sprite)
+	wifi:setDir(1)
 
 	return wifi
 end
