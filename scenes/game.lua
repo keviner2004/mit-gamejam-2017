@@ -45,6 +45,9 @@ function scene:show( event )
         config.currentLevel = 1
 
         scene.universe = display.newGroup()
+        scene.universe.x = config.contentCenterX
+        scene.universe.y = config.contentCenterY
+        sceneGroup:insert(scene.universe)
 
         -- set up map
         scene.map = GridContainer.new({
@@ -53,6 +56,8 @@ function scene:show( event )
             maxW = config.contentWidth,
             maxH = config.contentHeight,
         })
+        scene.universe:insert(scene.map)
+        
 
         distList = {
             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -90,47 +95,6 @@ function scene:show( event )
         scene.universe:insert(scene.bgImage)
         scene.bgImage:toBack()
 
-        -- init objs
-
-        local wifi = Wifi.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 8,
-            j = 11,
-            areas = {Wifi.AREA_LEFT},
-        })
-
-        
-        local fat = FatGuy.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 7,
-            j = 10,
-        })
-
-        --[[
-        local photoSpot = PhotoSpot.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 1,
-            j = 1,
-        })
-
-        local shareSpot = ShareSpot.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 1,
-            j = 2,
-        })
-
-        local chargeStation = ChargeStation.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 1,
-            j = 3,
-        })
-        ]]
-
         self.char = NewCharacter.new({
             universe = scene.universe,
             map = scene.map,
@@ -139,15 +103,98 @@ function scene:show( event )
         })
         self.char:addEventListener( "action", scene )
 
-        scene.universe:insert(scene.map)
-
-        scene.universe.x = config.contentCenterX
-        scene.universe.y = config.contentCenterY
-        sceneGroup:insert(scene.universe)
-
+        -- init objs
+        local wifi = Wifi.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 8,
+            j = 11,
+            areas = {Wifi.AREA_LEFT},
+        })
         wifi:showGrid()
-        wifi:setDir(4)
- 
+        wifi:setDir(7)
+
+        wifi = Wifi.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 6,
+            j = 5,
+            areas = {Wifi.AREA_LEFTTOP},
+        })
+        wifi:showGrid()
+        wifi:setDir(8)
+        
+        wifi = Wifi.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 4,
+            j = 5,
+            areas = {Wifi.AREA_BTM},
+        })
+        wifi:showGrid()
+        wifi:setDir(5)
+
+        wifi = Wifi.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 4,
+            j = 9,
+            areas = {Wifi.AREA_TOP},
+        })
+        wifi:showGrid()
+        wifi:setDir(1)
+
+        FatGuy.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 7,
+            j = 10,
+        })
+
+        FatGuy.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 3,
+            j = 8,
+        })
+
+        FatGuy.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 5,
+            j = 4,
+        })
+
+        PhotoSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 9,
+            j = 12,
+        })
+
+        PhotoSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 2,
+            j = 8,
+        })
+
+        
+        ShareSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 5,
+            j = 5,
+        })
+
+
+        ChargeStation.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 5,
+            j = 7,
+        })
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
  

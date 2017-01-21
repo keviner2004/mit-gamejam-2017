@@ -63,11 +63,7 @@ Switch.new = function(options)
         else
             self.sprite:pause()
         end
-    end
-
-	local rect = display.newRect(0, 0, 100, 100)
-    rect.fill = {0.5, 0.5, 0}
-    switch:insert(rect)
+    end 
 
 	switch.tag = "charge"
     switch:insert(switch.sprite)

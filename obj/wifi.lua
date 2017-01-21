@@ -17,6 +17,8 @@ Wifi.new = function(options)
 	wifi.tag = "WIFI"
 	wifi.indicatorGroup = display.newGroup()
 
+	wifi.y = wifi.y-60
+
 	function wifi:rotateClockwize45()
 		self:hideGrid()
 		local oldAffectedAreas = {}
