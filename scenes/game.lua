@@ -48,6 +48,9 @@ function scene:show( event )
         for i = 1, config.boardHSize do
             for j = 1, config.boardWSize do
                 scene.map.grid[i][j].wifiCount = 0
+                
+
+
                 if config.mode == config.MODE_DEBUG then    
                     local text = display.newText({
                         text = '('..tostring(i)..', '..tostring(j)..')',
@@ -59,9 +62,7 @@ function scene:show( event )
             end
         end
 
-        local wifi = Wifi.new(scene.map, 2, 2, {2})
-        scene.map:insertAt(wifi, 2, 2)
-        
+        --local wifi = Wifi.new(scene.map, 2, 2, {2})
 
         scene.universe:insert(scene.map)
 
