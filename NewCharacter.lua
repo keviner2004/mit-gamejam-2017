@@ -3,7 +3,7 @@ local Control = require("Control")
 local sfx = require("libs.sfx")
 
 local config = require("GameConfig")
-
+local composer = require("composer")
 local Character = {}
 local BaseCharacter = require("BaseCharacter")
 
@@ -99,6 +99,7 @@ Character.new = function (options)
             self:photoRight()
         end
         sfx:play("photo")
+        self:showPhoto()
     end
 
     function character:toSelfPhoto()
@@ -113,6 +114,18 @@ Character.new = function (options)
             self:photoRight()
         end
         sfx:play("photo")
+        self:showPhoto()
+    end
+
+    function character:showPhoto(photoSelf)
+        composer.showOverlay("scenes.photo", {
+            params = {
+                photoSelf = photoSelf
+            }
+        })
+        timer.performWithDelay(1000, function ()
+            composer.hideOverlay()
+        end)
     end
 
     function character:toShare()
