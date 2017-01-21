@@ -13,6 +13,7 @@ local config = require( "GameConfig" )
 
 --ui
 local Battery = require("ui.Battery")
+local Head = require("ui.Head")
 
 local screen = require("libs.screen")
 local scene = composer.newScene()
@@ -204,11 +205,17 @@ function scene:show( event )
         --place ui
         local battery = Battery.new()
 
-        battery.x = 500
-        battery.y = 500
+        battery.x = display.contentWidth / 2
+        battery.y = display.contentHeight * 0.05
+        battery:setLevel(3)
+
+        local head = Head.new()
+        head.x = battery.x - display.contentWidth * 0.05
+        head.y = display.contentHeight * 0.05
 
 
         sceneGroup:insert(battery)
+        sceneGroup:insert(head)
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

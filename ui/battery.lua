@@ -21,7 +21,7 @@ Battery.new = function()
 
     battery.level = 5
 
-    function battery:setBatteryLevel( frameIndex )
+    function battery:setLevel( frameIndex )
         if frameIndex < 0 then
             frameIndex = 0
         end
@@ -44,7 +44,7 @@ Battery.new = function()
         end
     end
 
-    battery:setBatteryLevel(5)
+    battery:setLevel(5)
 
     return battery
 end
