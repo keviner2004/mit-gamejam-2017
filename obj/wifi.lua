@@ -79,10 +79,15 @@ Wifi.new = function(options)
 		end
 
 		for i = 1, #oldAffectedAreas do
+			print("Check old pos ", oldAffectedAreas[i].i, oldAffectedAreas[i].j)
 			local checkGrid = self.map.grid[oldAffectedAreas[i].i][oldAffectedAreas[i].j]
-			if checkGrid.obj.tag == "FATTY" and grid.obj.wifiCount == 0 then
-				local di = oldAffectedAreas[i] - newAffectedAreas[i]
-				local dj = oldAffectedAreas[j] - newAffectedAreas[j]
+			if checkGrid.obj then
+				print("The object on the tile is ", checkGrid.obj.tag, checkGrid.wifiCount)
+			end
+			if checkGrid.obj and checkGrid.obj.tag == "fatguy" and checkGrid.wifiCount == 0 then
+				print("move the fat guy")
+				local di = newAffectedAreas[i].i - oldAffectedAreas[i].i
+				local dj = newAffectedAreas[i].j - oldAffectedAreas[i].j
 				if di > 0 then
 					checkGrid.obj:toDown()
 				end
@@ -190,11 +195,38 @@ Wifi.new = function(options)
 		end
 	end
 
+	function wifi:init()
+		for i = 1, #self.affectedAreas do
+			--cache old area
+			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
+				self.map.grid[wifi.i-1][wifi.j-1].wifiCount = self.map.grid[wifi.i-1][wifi.j-1].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_TOP then
+				self.map.grid[wifi.i-1][wifi.j].wifiCount = self.map.grid[wifi.i-1][wifi.j].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
+				self.map.grid[wifi.i-1][wifi.j+1].wifiCount = self.map.grid[wifi.i-1][wifi.j+1].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_RIGHT then
+				self.map.grid[wifi.i][wifi.j+1].wifiCount = self.map.grid[wifi.i][wifi.j+1].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTBTM then
+				self.map.grid[wifi.i+1][wifi.j+1].wifiCount = self.map.grid[wifi.i+1][wifi.j+1].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_BTM then
+				self.map.grid[wifi.i+1][wifi.j].wifiCount = self.map.grid[wifi.i+1][wifi.j].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_LEFTBTM then
+				self.map.grid[wifi.i+1][wifi.j-1].wifiCount = self.map.grid[wifi.i+1][wifi.j-1].wifiCount +1
+			elseif self.affectedAreas[i] == Wifi.AREA_LEFT then
+				self.map.grid[wifi.i][wifi.j-1].wifiCount = self.map.grid[wifi.i][wifi.j-1].wifiCount +1
+			else
+				print("Fuck, ",self.affectedAreas[i])
+			end
+		end
+	end
+
 	function wifi:hideGrid()
 		for i = 1, self.indicatorGroup.numChildren do
 			self.indicatorGroup[1]:removeSelf()
 		end
 	end
+
+	wifi:init()
 
 	return wifi
 end
