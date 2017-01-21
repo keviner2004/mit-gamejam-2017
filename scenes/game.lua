@@ -50,7 +50,7 @@ function scene:show( event )
         for i = 1, config.boardHSize do
             for j = 1, config.boardWSize do
                 scene.map.grid[i][j].wifiCount = 0
-
+                scene.map.grid[i][j].dist = 0
 
 
                 if config.mode == config.MODE_DEBUG then    
@@ -72,12 +72,11 @@ function scene:show( event )
         })
 
         local wifi = Wifi.new({
+            universe = scene.universe,
             map = scene.map,
             i = 2,
             j = 3,
         })
-
-        scene.universe:insert(fat)
 
         scene.universe:insert(scene.map)
 
