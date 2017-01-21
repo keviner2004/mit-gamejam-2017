@@ -36,6 +36,10 @@ function scene:show( event )
         ch.x = display.contentWidth/2
         ch.y = display.contentHeight/2
 
+        ch:addEventListener("action", function(event)
+            print("Ch actions ", event.name, event.phase, event.dir)
+        end)
+
         local fatGuy = FatGuy.new()
         fatGuy.x = display.contentWidth/2
         fatGuy.y = display.contentHeight/4
