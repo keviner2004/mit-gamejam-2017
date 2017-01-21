@@ -11,7 +11,13 @@ local NewCharacter = require("NewCharacter")
 local GridContainer = require( "libs.ui.GridContainer" )
 local config = require( "GameConfig" )
 
+--ui
+local Battery = require("ui.Battery")
+
+local screen = require("libs.screen")
 local scene = composer.newScene()
+
+
  
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -194,6 +200,15 @@ function scene:show( event )
             i = 5,
             j = 7,
         })
+
+        --place ui
+        local battery = Battery.new()
+
+        battery.x = 500
+        battery.y = 500
+
+
+        sceneGroup:insert(battery)
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

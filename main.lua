@@ -6,9 +6,9 @@ display.setDefault( "magTextureFilter", "linear" )
 display.setDefault( "minTextureFilter", "nearest" )
 --load sprites
 Sprite.addSheet("objects", "sprites/objects.png", "sprites.objects")
+Sprite.addSheet("ui", "sprites/ui.png", "sprites.ui")
 --load main scene
 local composer = require("composer")
-
 --composer.gotoScene("scenes.spritedemo")
 --composer.gotoScene("scenes.muidemo")
 

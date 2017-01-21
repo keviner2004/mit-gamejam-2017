@@ -1,17 +1,26 @@
 local screen = {}
-
+local mode = "letterBox"
 print(display.contentWidth, display.contentHeight, display.pixelWidth, display.pixelHeight)
 
 local scaleW = display.pixelWidth / display.contentWidth
 local scaleH = display.pixelHeight / display.contentHeight
 
-
-if display.contentWidth * scaleH > display.pixelWidth then
-    screen.top = 0
-    screen.left = (display.contentWidth * scaleH - display.pixelWidth)/2/scaleH
+if mode == "zoomEven" then
+    if display.contentWidth * scaleH > display.pixelWidth then
+        screen.top = 0
+        screen.left = (display.contentWidth * scaleH - display.pixelWidth)/2/scaleH
+    else
+        screen.top = (display.contentHeight * scaleW - display.pixelHeight)/2/scaleW
+        screen.left = 0
+    end
 else
-    screen.top = (display.contentHeight * scaleW - display.pixelHeight)/2/scaleW
-    screen.left = 0
+    if display.contentWidth * scaleH < display.pixelWidth then
+        screen.top = 0
+        screen.left = (display.pixelWidth - display.contentWidth * scaleH)/2/scaleH
+    else
+        screen.top = (display.pixelHeight - display.contentHeight * scaleW)/2/scaleW
+        screen.left = 0
+    end
 end
 
 print("Screen top, left ", screen.top, screen.left)
