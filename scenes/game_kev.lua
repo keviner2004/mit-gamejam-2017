@@ -76,16 +76,19 @@ function scene:show( event )
             map = scene.map,
             i = 2,
             j = 3,
-            areas = {Wifi.AREA_LEFT}
+            areas = {Wifi.AREA_LEFT, Wifi.AREA_RIGHT}
         })
 
-        wifi:showGrid()
-
         scene.universe:insert(scene.map)
-
         scene.universe.x = config.contentCenterX
         scene.universe.y = config.contentCenterY
         sceneGroup:insert(scene.universe)
+
+        wifi:showGrid()
+
+        timer.performWithDelay(1000, function()
+            wifi:rotateClockwize45()
+        end, -1)
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

@@ -15,11 +15,12 @@ Wifi.new = function(options)
 	local wifi = MoveObject.new(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
-
+	wifi.indicatorGroup = display.newGroup()
 	wifi.map.grid[wifi.i][wifi.j].obj = wifi
 	wifi.map.grid[wifi.i][wifi.j].dist = wifi.map.grid[wifi.i][wifi.j].dist -1
 
 	function wifi:rotateClockwize45()
+		self:hideGrid()
 		-- change self.map's wifi count
 		for i = 1, #self.affectedAreas do
 			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
@@ -33,7 +34,7 @@ Wifi.new = function(options)
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
 				self.map.grid[wifi.i-1][wifi.j+1].wifiCount = self.map.grid[wifi.i-1][wifi.j+1].wifiCount -1
 				self.map.grid[wifi.i][wifi.j+1].wifiCount = self.map.grid[wifi.i][wifi.j+1].wifiCount +1
-				self.affectedAreas[i] = Wifi.AREA_RIGH
+				self.affectedAreas[i] = Wifi.AREA_RIGHT
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHT then
 				self.map.grid[wifi.i][wifi.j+1].wifiCount = self.map.grid[wifi.i][wifi.j+1].wifiCount -1
 				self.map.grid[wifi.i+1][wifi.j+1].wifiCount = self.map.grid[wifi.i+1][wifi.j+1].wifiCount +1
@@ -54,6 +55,8 @@ Wifi.new = function(options)
 				self.map.grid[wifi.i][wifi.j-1].wifiCount = self.map.grid[wifi.i][wifi.j-1].wifiCount -1
 				self.map.grid[wifi.i-1][wifi.j-1].wifiCount = self.map.grid[wifi.i-1][wifi.j-1].wifiCount +1
 				self.affectedAreas[i] = Wifi.AREA_LEFTTOP
+			else
+				print("Fuck, ",self.affectedAreas[i])
 			end
 		end
 		-- check needs for fatty
@@ -71,6 +74,8 @@ Wifi.new = function(options)
 		needsForFatty(self.map.grid[wifi.i+1][wifi.j-1], "toLeft")
 		needsForFatty(self.map.grid[wifi.i+1][wifi.j], "toUp")
 		needsForFatty(self.map.grid[wifi.i+1][wifi.j+1], "toUp")
+
+		self:showGrid()
 	end
 
 	function wifi:isAffected(char)
@@ -112,32 +117,59 @@ Wifi.new = function(options)
 		return false
 	end
 
+	function cast( ... )
+		-- body
+	end
+
 	function wifi:showGrid()
 		if not self.affectedAreas then
 			return
 		end
+		print("showGrid: ", #self.affectedAreas)
 		for i = 1, #self.affectedAreas do
-			local indicator = display.newRect(0, 0, 100, 100)
-			indicator.fill = {0,0,1}
-			
+			local newi, newj
 			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
-				self.map:putOn(indicator, self.i - 1, self.j - 1, true)
+				newi = self.i - 1
+				newj =  self.j - 1
 			elseif self.affectedAreas[i] == Wifi.AREA_TOP then
-				self.map:putOn(indicator, self.i, self.j - 1, true)
+				newi = self.i - 1
+				newj = self.j
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
-				self.map:putOn(indicator, self.i + 1, self.j - 1, true)
+				newi = self.i - 1
+				newj = self.j + 1
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHT then
-				self.map:putOn(indicator, self.i + 1, self.j, true)
+				newi = self.i
+				newj = self.j + 1
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTBTM then
-				self.map:putOn(indicator, self.i + 1, self.j + 1, true)
+				newi = self.i + 1
+				newj = self.j + 1
 			elseif self.affectedAreas[i] == Wifi.AREA_BTM then
-				self.map:putOn(indicator, self.i, self.j + 1, true)
+				newi = self.i + 1
+				newj = self.j
 			elseif self.affectedAreas[i] == Wifi.AREA_LEFTBTM then
-				self.map:putOn(indicator, self.i - 1, self.j + 1, true)
+				newi = self.i + 1
+				newj = self.j - 1
 			elseif self.affectedAreas[i] == Wifi.AREA_LEFT then
-				self.map:putOn(indicator, self.i - 1, self.j, true)
+				newi = self.i
+				newj = self.j - 1
 			end
-			
+			print("put wifi to ", self.affectedAreas[i], newi, newj)
+			if not self.map:isOut(newi, newj) then
+				local x, y = self.indicatorGroup:contentToLocal(self.map:getAbsLoc(newi, newj))
+				local indicator = display.newRect(0, 0, 100, 100)
+				indicator.fill = {0,0,1}
+				indicator.alpha = 0.8
+				self.indicatorGroup:insert(indicator)
+				indicator.x = x
+				indicator.y = y
+			end
+
+		end
+	end
+
+	function wifi:hideGrid()
+		for i = 1, self.indicatorGroup.numChildren do
+			self.indicatorGroup[1]:removeSelf()
 		end
 	end
 

@@ -139,8 +139,6 @@ GridContainer.new = function(options)
 			local t = self.grid[i][j]
 			local circle = display.newCircle(0, 0, 10)
 			t:insert(circle)
-			print("1", circle.x, circle.y)
-			print("2", circle:localToContent(0, 0))
 			local x, y = self.parent:contentToLocal(t:localToContent(0, 0))
 			obj.x = x
 			obj.y = y
@@ -152,6 +150,13 @@ GridContainer.new = function(options)
 	function g:getAbsLoc(i, j)
 		local t = self.grid[i][j]
 		return t:localToContent(0, 0)
+	end
+
+	function g:isOut(i, j)
+		if i > self.numRows or i < 0 or j > self.numCols or j < 0 then
+			return true
+		end
+		return false
 	end
 
 	return g
