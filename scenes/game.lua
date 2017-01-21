@@ -254,6 +254,7 @@ function scene:show( event )
         sceneGroup:insert(missionPaper)
 
         self.batteryUI = battery
+        self.head = head
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
@@ -329,6 +330,15 @@ end
 
 function scene:focus( event )
     --print("Focus changed: ", event.value, " has wifi", event.hasWifi)
+    if event.value < self.char.maxFocus * 0.25 then
+        self.head:setLevel(1)
+    elseif event.value < self.char.maxFocus * 0.5 then
+        self.head:setLevel(2)
+    elseif event.value < self.char.maxFocus * 0.75 then
+        self.head:setLevel(3)
+    else
+        self.head:setLevel(4)
+    end
 end
  
 -- -----------------------------------------------------------------------------------
