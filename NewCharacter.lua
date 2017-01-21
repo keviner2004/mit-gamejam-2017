@@ -10,14 +10,30 @@ Character.new = function (options)
     character:insert(rect)
     character:setControl()
 
+    function character:getObj(i, j)
+    	return self.map.grid[i][j].obj
+    end
+
     function character:toRotateWifi()
-    	if self.facing == "up" and self.i ~= 1 and self.map.grid[self.i-1][self.j].obj.tag == "WIFI" then
-    		self.map.grid[self.i-1][self.j].obj:rotateClockwize45()
-    	elseif self.facing == "down" and self.i ~= config.boardHSize and self.map.grid[self.i+1][self.j].obj.tag == "WIFI" then
+    	if self.facing == "down" and 
+    			self.i ~= config.boardHSize and 
+    			self:getObj(self.i+1, self.j) and 
+    			self:getObj(self.i+1, self.j).tag == "WIFI" then
     		self.map.grid[self.i+1][self.j].obj:rotateClockwize45()
-		elseif self.facing == "left" and self.j ~= 1 and self.map.grid[self.i][self.j-1].obj.tag == "WIFI" then
+		elseif self.facing == "up" and 
+				self.i ~= 1 and 
+				self:getObj(self.i-1, self.j) and 
+				self:getObj(self.i-1, self.j).tag == "WIFI" then
+    		self.map.grid[self.i-1][self.j].obj:rotateClockwize45()
+		elseif self.facing == "left" and 
+				self.j ~= 1 and 
+				self:getObj(self.i, self.j-1) and 
+				self:getObj(self.i, self.j-1).tag == "WIFI" then
 			self.map.grid[self.i][self.j-1].obj:rotateClockwize45()
-		elseif self.facing == "right" and self.j ~= config.boardWSize and self.map.grid[self.i][self.j+1].obj.tag == "WIFI" then
+		elseif self.facing == "right" and 
+				self.j ~= config.boardWSize and 
+				self:getObj(self.i, self.j+1) and 
+				self:getObj(self.i, self.j+1).tag == "WIFI" then
 			self.map.grid[self.i][self.j+1].obj:rotateClockwize45()
 		end    		
     end

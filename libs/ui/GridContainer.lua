@@ -142,7 +142,6 @@ GridContainer.new = function(options)
 			local x, y = self.parent:contentToLocal(t:localToContent(0, 0))
 			obj.x = x
 			obj.y = y
-			print("Put the obj on", x, y)
 			self.parent:insert(obj)
 		end
 	end	
