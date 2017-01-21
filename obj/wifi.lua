@@ -15,9 +15,6 @@ Wifi.new = function(options)
 	local wifi = MoveObject.new(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
-	wifi.indicatorGroup = display.newGroup()
-	wifi.map.grid[wifi.i][wifi.j].obj = wifi
-	wifi.map.grid[wifi.i][wifi.j].dist = wifi.map.grid[wifi.i][wifi.j].dist -1
 
 	function wifi:rotateClockwize45()
 		self:hideGrid()

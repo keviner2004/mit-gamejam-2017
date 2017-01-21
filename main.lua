@@ -10,5 +10,5 @@ local composer = require("composer")
 --composer.gotoScene("scenes.muidemo")
 
 --composer.gotoScene("scenes.characterdemo")
---composer.gotoScene("scenes.game")
-composer.gotoScene("scenes.game_kev")
+composer.gotoScene("scenes.game")
+--composer.gotoScene("scenes.game_kev")

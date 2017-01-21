@@ -7,12 +7,12 @@ Character.new = function (options)
 
     character.map = options and options.map
     character.focus = options and options.focus or 100
-    character.charge = options and options.charge or 100
     character.faceValue = options and options.faceValue or 50
     character.focusOffset = options and options.focusOffset or 0.1
     character.charge = options and options.charge or 4
     character.animation = {}
     character.spriteTag = "character"
+    character.facing = options and options.facing or "down"
 
     function character:dispatchFocusChangeEvent()
         if self.dispatchEvent then
@@ -36,19 +36,27 @@ Character.new = function (options)
     end
 
     function character:onWalkUp()
+        self.facing = "up"
         self:dispathcActionEvent("walk", "up")
     end
 
     function character:onWalkDown()
+        self.facing = "down"
         self:dispathcActionEvent("walk", "down")
     end
 
     function character:onWalkLeft()
+        self.facing = "left"
         self:dispathcActionEvent("walk", "left")
     end
 
     function character:onWalkRight()
+        self.facing = "right"
         self:dispathcActionEvent("walk", "right")
+    end
+
+    function character:onRotateWifi()
+        self:dispathcActionEvent("rotate", "clockwize")
     end
 
     function character:hasWifi()

@@ -11,6 +11,7 @@ Control.new = function (target)
         local leftPressing = false
         local rightPressing = false
         local downPressing = false
+        local spacePressing = false
 
         if phase == "up" then
             if keyName == "up" then
@@ -25,6 +26,9 @@ Control.new = function (target)
             elseif keyName == "right" then
                 rightPressing = false
                 target:onWalkRight()
+            elseif keyName == "space" then
+                spacePressing = false
+                target:onRotateWifi()
             end
         elseif phase == "down" then
             if keyName == "up" then
@@ -38,6 +42,9 @@ Control.new = function (target)
                 
             elseif keyName == "right" then
                 rightPressing = true
+
+            elseif keyName == "space" then
+                spacePressing = true    
                 
             end
         end
