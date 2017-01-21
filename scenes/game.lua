@@ -71,7 +71,11 @@ function scene:show( event )
             j = 2,
         })
 
-        
+        local wifi = Wifi.new({
+            map = scene.map,
+            i = 2,
+            j = 3,
+        })
 
         scene.universe:insert(fat)
 

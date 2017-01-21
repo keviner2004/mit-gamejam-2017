@@ -1,3 +1,5 @@
+local MoveObject = require("MoveObject")
+
 local Wifi = {}
 
 Wifi.AREA_LEFTTOP = 1
@@ -10,12 +12,9 @@ Wifi.AREA_RIGHT = 7
 Wifi.AREA_RIGHTBTM = 8
 
 Wifi.new = function(options)
-	local wifi = display.newGroup()
-	local map = options and options.map
+	local wifi = MoveObject.new(options)
 	wifi.affectedAreas = options and options.areas
-	wifi.i = options and options.i
-	wifi.j = options and options.j
-	wifi.type = "WIFI"
+	wifi.tag = "WIFI"
 
 	map.grid[i][j].obj = wifi
 	map.grid[i][j].dist = map.grid[i][j].dist -1
