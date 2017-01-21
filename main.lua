@@ -10,9 +10,6 @@ Sprite.addSheet("ui", "sprites/ui.png", "sprites.ui")
 Sprite.addSheet("new_character", "sprites/new_character.png", "sprites.new_character")
 --load main scene
 local composer = require("composer")
---composer.gotoScene("scenes.spritedemo")
---composer.gotoScene("scenes.muidemo")
 
---composer.gotoScene("scenes.characterdemo")
 composer.gotoScene("scenes.game")
---composer.gotoScene("scenes.game_kev")
+--composer.gotoScene("scenes.badend")

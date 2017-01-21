@@ -32,13 +32,16 @@ Control.new = function (target)
                 target:onWalkRight()
             elseif keyName == "e" then
                 spacePressing = false
-                target:onRotateWifi("clockwise")
+                target:onActive("e")
+                --target:onRotateWifi("clockwise")
             elseif keyName == "q" then
                 spacePressing = false
-                target:onRotateWifi("anticlockwise")
-            elseif keyName == "space" then
-                spacePressing = false
-                target:onActive()
+                target:onActive("q")
+                --target:onRotateWifi("anticlockwise")
+            
+            --elseif keyName == "space" then
+                --spacePressing = false
+                --target:onActive()
             end
 
         elseif phase == "down" then
