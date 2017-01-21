@@ -10,9 +10,9 @@ config.contentHeight = display.contentHeight
 config.contentCenterX = display.contentCenterX
 config.contentCenterY = display.contentCenterY
 
-config.timeLimit = 450
+config.timeLimit = 300
 
-config.fontSize = 40
+config.fontSize = 70
 config.font = native.systemFont
 
 -- Board

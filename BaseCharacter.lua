@@ -60,8 +60,8 @@ Character.new = function (options)
         self:dispathcActionEvent("rotate", dir)
     end
 
-    function character:onActive()
-        self:dispathcActionEvent("active", nil)
+    function character:onActive(key)
+        self:dispathcActionEvent("active", key)
     end
 
     function character:hasWifi()

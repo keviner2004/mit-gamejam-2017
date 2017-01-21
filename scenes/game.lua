@@ -117,6 +117,9 @@ function scene:show( event )
                     if grid.bg then
                         self.universe:insert(grid.bg)
                     end
+                end
+                for j = 1, config.boardWSize do
+                    grid = self.map.grid[i][j]
                     if grid.obj then
                         self.universe:insert(grid.obj)
                     end
@@ -188,13 +191,14 @@ function scene:show( event )
             j = 8,
         }):addEventListener( "move", reInsert)
 
+        
         FatGuy.new({
             universe = self.universe,
             map = self.map,
             i = 5,
             j = 4,
         }):addEventListener( "move", reInsert)
-
+        
         PhotoSpot.new({
             universe = self.universe,
             map = self.map,
@@ -215,7 +219,7 @@ function scene:show( event )
             i = 5,
             j = 5,
         })
-
+        
         ChargeStation.new({
             universe = self.universe,
             map = self.map,
@@ -256,6 +260,8 @@ function scene:show( event )
         self.batteryUI = battery
         self.head = head
 
+        reInsert()
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
         sfx:play("bgm", {loops=-1})
@@ -291,7 +297,10 @@ end
 local frame = -1
 
 function scene:gotoBadEnd()
-    composer.gotoScene("scenes.badend")
+    composer.gotoScene("scenes.badend", {
+        effect = "fade",
+        time = 1200,
+    })
 end
 
 function scene:gotoGoodEnd()
@@ -326,20 +335,34 @@ function scene:action( event )
         self.char:toLeft()
     elseif event.phase == "walk" and event.dir == "right" then
         self.char:toRight()
+    --[[
     elseif event.phase == "rotate" and event.dir == "clockwise" then
         self.char:toRotateWifi(1)
     elseif event.phase == "rotate" and event.dir == "anticlockwise" then
         self.char:toRotateWifi(-1)
+    ]]
     elseif event.phase == "active" then
         local bg = self.map.grid[self.char.i][self.char.j].bg
         if bg then
             if bg.tag == "photo" then
-                self.char:toPhoto()
+                if event.dir == "e" then
+                    self.char:toPhoto()
+                elseif event.dir == "q" then
+                    self.char:toSelfPhoto()
+                end 
+                return
             elseif bg.tag == "charge" then
                 self.char:toCharge()
+                return
             elseif bg.tag == "share" then
                 self.char:toShare()
+                return
             end
+        end
+        if event.dir == "e" then
+            self.char:toRotateWifi(1)
+        elseif event.dir == "q" then
+            self.char:toRotateWifi(-1)
         end
     end
 end
