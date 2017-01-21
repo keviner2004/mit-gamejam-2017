@@ -1,5 +1,6 @@
 local MoveObject = require("MoveObject")
 local Sprite = require("libs.Sprite")
+local Indicator = require("obj.Indicator")
 local sfx = require("libs.sfx")
 local Wifi = {}
 
@@ -17,7 +18,6 @@ Wifi.new = function(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
 	wifi.indicatorGroup = display.newGroup()
-	wifi:insert(wifi.indicatorGroup)
 	wifi.dir = 1
 
 	--wifi.y = wifi.y-60
@@ -209,41 +209,49 @@ Wifi.new = function(options)
 	function wifi:showGrid()
 		print("showGrid: ", #self.affectedAreas)
 		for i = 1, #self.affectedAreas do
-			local newi, newj
+			local newi, newj, idir
 			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
 				newi = self.i - 1
 				newj =  self.j - 1
+				idir = 8
 			elseif self.affectedAreas[i] == Wifi.AREA_TOP then
 				newi = self.i - 1
 				newj = self.j
+				idir = 1
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
 				newi = self.i - 1
 				newj = self.j + 1
+				idir = 2
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHT then
 				newi = self.i
 				newj = self.j + 1
+				idir = 3
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTBTM then
 				newi = self.i + 1
 				newj = self.j + 1
+				idir = 4
 			elseif self.affectedAreas[i] == Wifi.AREA_BTM then
 				newi = self.i + 1
 				newj = self.j
+				idir = 5
 			elseif self.affectedAreas[i] == Wifi.AREA_LEFTBTM then
 				newi = self.i + 1
 				newj = self.j - 1
+				idir = 6
 			elseif self.affectedAreas[i] == Wifi.AREA_LEFT then
 				newi = self.i
 				newj = self.j - 1
+				idir = 7
 			end
 			print("put wifi to ", self.affectedAreas[i], newi, newj)
 			if not self.map:isOut(newi, newj) then
 				local x, y = self.indicatorGroup:contentToLocal(self.map:getAbsLoc(newi, newj))
-				local indicator = display.newRect(0, 0, 100, 100)
-				indicator.fill = {0,0,1}
-				indicator.alpha = 0.3
+				local indicator = Indicator.new()
+				indicator:setDir(idir)
+				indicator.alpha = 0.8
 				self.indicatorGroup:insert(indicator)
-				indicator.x = x
-				indicator.y = y
+				--indicator.x = x
+				--indicator.y = y
 			end
 
 		end
@@ -344,6 +352,7 @@ Wifi.new = function(options)
 	})
 
 	wifi:insert(wifi.sprite)
+	wifi:insert(wifi.indicatorGroup)
 	wifi:setDir(1)
 
 	return wifi
