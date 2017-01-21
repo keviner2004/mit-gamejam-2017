@@ -158,25 +158,25 @@ Character.new = function (options)
     end
 
     function character:setSelfUpAnimation(frames)
-        self:setAnimation("photoup", frames, {
+        self:setAnimation("selfup", frames, {
             loopCount = 1
         })
     end
 
     function character:setSelfDownAnimation(frames)
-        self:setAnimation("photodown", frames, {
+        self:setAnimation("selfdown", frames, {
             loopCount = 1
         })
     end
 
     function character:setSelfLeftAnimation(frames)
-        self:setAnimation("photoleft", frames, {
+        self:setAnimation("selfleft", frames, {
             loopCount = 1
         })
     end
 
     function character:setSelfRightAnimation(frames)
-        self:setAnimation("photoright", frames, {
+        self:setAnimation("selfright", frames, {
             loopCount = 1
         })
     end
@@ -235,35 +235,47 @@ Character.new = function (options)
     end
 
     function character:photoUp()
-
+        self.sprite:setSequence("photoup")
+        self.sprite:play()
     end
 
     function character:photoDown()
-
+        self.sprite:setSequence("photodown")
+        self.sprite:play()
     end
 
     function character:photoLeft()
-
+        self.sprite:setSequence("photoleft")
+        self.sprite.xScale = 1
+        self.sprite:play()
     end
 
     function character:photoRight()
-
+        self.sprite:setSequence("photoleft")
+        self.sprite.xScale = -1
+        self.sprite:play()
     end
 
     function character:selfPhotoTop()
-
+        self.sprite:setSequence("selftop")
+        self.sprite:play()
     end
 
     function character:selfPhotoDown()
-
+        self.sprite:setSequence("selfdown")
+        self.sprite:play()
     end
 
     function character:selfPhotoLeft()
-
+        self.sprite:setSequence("selfleft")
+        self.sprite.xScale = 1
+        self.sprite:play()
     end
 
     function character:selfPhotoRight()
-
+        self.sprite:setSequence("selfleft")
+        self.sprite.xScale = -1
+        self.sprite:play()
     end
 
     function character:play()
