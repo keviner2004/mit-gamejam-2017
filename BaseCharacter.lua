@@ -1,8 +1,9 @@
 local Control = require("Control")
+local MoveObject = require("MoveObject")
 local Character = {}
 
 Character.new = function (options)
-    local character = display.newGroup()
+    local character = MoveObject.new(options)
 
     character.map = options and options.map
     character.focus = options and options.focus or 100
@@ -10,7 +11,6 @@ Character.new = function (options)
     character.faceValue = options and options.faceValue or 50
     character.focusOffset = options and options.focusOffset or 0.1
     character.charge = options and options.charge or 4
-    character.mapPos = {x = -1, y = -1}
     character.animation = {}
     character.spriteTag = "character"
 

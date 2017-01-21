@@ -9,15 +9,16 @@ Wifi.AREA_RIGHTTOP = 6
 Wifi.AREA_RIGHT = 7
 Wifi.AREA_RIGHTBTM = 8
 
-Wifi.new = function(map, i, j, areas)
+Wifi.new = function(options)
 	local wifi = display.newGroup()
-
-	wifi.affectedAreas = areas
-	wifi.i = i
-	wifi.j = j
+	local map = options and options.map
+	wifi.affectedAreas = options and options.areas
+	wifi.i = options and options.i
+	wifi.j = options and options.j
 	wifi.type = "WIFI"
 
 	map.grid[i][j].obj = wifi
+	map.grid[i][j].dist = map.grid[i][j].dist -1
 	map:insertAt(wifi, i, j)
 
 	function wifi:rotateClockwize45()
