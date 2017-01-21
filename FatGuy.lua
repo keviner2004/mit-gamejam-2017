@@ -7,6 +7,7 @@ Character.new = function (options)
     local rect = display.newRect(0, 0, 100, 100)
     rect.fill = {1, 0, 0}
     character:insert(rect)
+    character.type = 
 
     return character
 end
