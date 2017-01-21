@@ -1,0 +1,15 @@
+settings = {
+    window =
+    {
+        resizable = true,
+        enableMaximizeButton = true,
+        minViewWidth = 640,
+        minViewHeight = 480,
+        defaultViewWidth = 1280,
+        defaultViewHeight = 720,
+        titleText =
+        {
+            default = "Wifi People",
+        },
+    },
+}
