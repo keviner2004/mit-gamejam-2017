@@ -1,5 +1,7 @@
 local Control = require("Control")
 
+local sfx = require("libs.sfx")
+
 local config = require("GameConfig")
 
 local Character = {}
@@ -87,14 +89,24 @@ Character.new = function (options)
 
     function character:toPhoto()
         print("toPhoto")
+        sfx:play("photo")
     end
 
     function character:toShare()
-       print("toShare") 
+       print("toShare")
+       sfx:play("share")
     end
 
     function character:toCharge()
         print("toCharge")
+        sfx:play("charge")
+        -- benefit
+        if self.charge ~= self.maxCharge then
+            self.charge = self.charge + 1
+            self:dispatchEvent({name="battery", charge = self.charge})    
+        end
+        self.moveCount = 0
+        -- penalty
     end
 
     function character:toRotateWifi(dir)

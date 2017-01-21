@@ -7,6 +7,8 @@ MoveObject.new = function(options)
 	local dist = options and options.dist or -1
 
 	obj.map = options and options.map or nil
+	obj.xOffset = options and options.xOffset or 0
+	obj.yOffset = options and options.yOffset or 0
 	obj.i = options and options.i
 	obj.j = options and options.j
 	obj.transLock = false
@@ -19,6 +21,9 @@ MoveObject.new = function(options)
 	obj.map.grid[obj.i][obj.j].dist = obj.map.grid[obj.i][obj.j].dist + dist
 
 	obj.x, obj.y = universe:contentToLocal( obj.map.grid[obj.i][obj.j]:localToContent(0,0) )
+
+	obj.x = obj.x + obj.xOffset
+	obj.y = obj.y + obj.yOffset
 
 	universe:insert(obj)
 
@@ -38,6 +43,8 @@ MoveObject.new = function(options)
 
 	function obj:moveToPos()
 		local x, y = universe:contentToLocal( self.map.grid[self.i][self.j]:localToContent(0,0) )
+		x = x + self.xOffset
+		y = y + self.yOffset
 		transition.to(self, {
 			x = x,
 			y = y,

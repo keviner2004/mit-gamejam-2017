@@ -15,14 +15,39 @@ sfx.channel = {
   
 }
 
-sfx.bg1 = {
-  handle = audio.loadStream( "sounds/bg1.mp3" ),
+sfx.bgm = {
+  handle = audio.loadStream( "sounds/bgm.mp3" ),
   channel = sfx.CHANNEL_BG
 }
 
-sfx.bg2 = {
-  handle = audio.loadStream( "sounds/bg2.mp3" ),
-  channel = sfx.CHANNEL_BG
+sfx.charge = {
+  handle = audio.loadSound("sounds/charge.mp3"),
+  channel = sfx.CHANNEL_UI
+}
+
+sfx.checkin = {
+  handle = audio.loadSound("sounds/checkin.mp3"),
+  channel = sfx.CHANNEL_UI
+}
+
+sfx.photo = {
+  handle = audio.loadSound("sounds/photo.mp3"),
+  channel = sfx.CHANNEL_UI
+}
+
+sfx.result = {
+  handle = audio.loadSound("sounds/result.mp3"),
+  channel = sfx.CHANNEL_UI
+}
+
+sfx.share = {
+  handle = audio.loadSound("sounds/share.mp3"),
+  channel = sfx.CHANNEL_UI
+}
+
+sfx.switch = {
+  handle = audio.loadSound("sounds/switch.mp3"),
+  channel = sfx.CHANNEL_UI
 }
 
 function sfx:initReservedChannelVolumn()

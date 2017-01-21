@@ -24,7 +24,7 @@ ChargeStation.new = function(options)
 	sprite:setSequence("idle")
     sprite:play()
 
-    sprite.y = sprite.y - 60
+    --sprite.y = sprite.y - 60
 
 	return station
 end

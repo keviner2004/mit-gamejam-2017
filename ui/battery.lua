@@ -44,6 +44,7 @@ Battery.new = function()
         end
     end
 
+
     battery:setLevel(5)
 
     return battery

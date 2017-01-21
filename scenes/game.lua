@@ -11,6 +11,8 @@ local NewCharacter = require("NewCharacter")
 local GridContainer = require( "libs.ui.GridContainer" )
 local config = require( "GameConfig" )
 
+local sfx = require("libs.sfx")
+
 --ui
 local Battery = require("ui.Battery")
 local Head = require("ui.Head")
@@ -64,11 +66,10 @@ function scene:show( event )
             maxW = config.contentWidth,
             maxH = config.contentHeight,
         })
-        self.universe:insert(self.map)
-        
+        self.universe:insert(self.map)        
 
         distList = {
-            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1},
             {-1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, -1,  0, -1, -1, -1},
             {-1, -1, -1,  0,  0,  0, -1,  0,  0,  0,  0,  0,  0, -1, -1, -1},
             {-1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1, -1, -1, -1},
@@ -97,7 +98,7 @@ function scene:show( event )
 
         -- add background
         self.bgImage = display.newImage('res/level1.png')
-        self.bgImage.y = self.map.gridH/2
+        --self.bgImage.y = self.map.gridH/2
         self.universe:insert(self.bgImage)
         self.bgImage:toBack()
 
@@ -106,8 +107,24 @@ function scene:show( event )
             map = self.map,
             i = 10,
             j = 4,
+            yOffset = -40,
         })
 
+        local reInsert = function()
+            for i = 1, config.boardHSize do
+                for j = 1, config.boardWSize do
+                    grid = self.map.grid[i][j]
+                    if grid.bg then
+                        self.universe:insert(grid.bg)
+                    end
+                    if grid.obj then
+                        self.universe:insert(grid.obj)
+                    end
+                end
+            end
+        end
+
+        self.char:addEventListener( "move", reInsert)
         self.char:addEventListener( "action", self )
         self.char:addEventListener( "battery", self )
         self.char:addEventListener( "focus", self )
@@ -119,6 +136,7 @@ function scene:show( event )
             i = 8,
             j = 11,
             areas = {Wifi.AREA_LEFT},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(7)
@@ -129,6 +147,7 @@ function scene:show( event )
             i = 6,
             j = 5,
             areas = {Wifi.AREA_LEFTTOP},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(8)
@@ -139,6 +158,7 @@ function scene:show( event )
             i = 4,
             j = 5,
             areas = {Wifi.AREA_BTM},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(5)
@@ -149,6 +169,7 @@ function scene:show( event )
             i = 4,
             j = 9,
             areas = {Wifi.AREA_TOP},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(1)
@@ -158,21 +179,21 @@ function scene:show( event )
             map = self.map,
             i = 7,
             j = 10,
-        })
+        }):addEventListener( "move", reInsert)
 
         FatGuy.new({
             universe = self.universe,
             map = self.map,
             i = 3,
             j = 8,
-        })
+        }):addEventListener( "move", reInsert)
 
         FatGuy.new({
             universe = self.universe,
             map = self.map,
             i = 5,
             j = 4,
-        })
+        }):addEventListener( "move", reInsert)
 
         PhotoSpot.new({
             universe = self.universe,
@@ -200,6 +221,7 @@ function scene:show( event )
             map = self.map,
             i = 5,
             j = 7,
+            yOffset = -60,
         })
 
         self.remainTimeText = display.newText({
@@ -235,7 +257,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
- 
+        sfx:play("bgm", {loops=-1})
     end
 end
  
@@ -273,7 +295,7 @@ function scene:enterFrame()
     end
 end
 
-function scene:battery( event)
+function scene:battery(event)
     print("Charge changed ", event.charge)
     self.batteryUI:setLevel(event.charge)
 end
@@ -317,7 +339,6 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
-
 Runtime:addEventListener( "enterFrame", scene )
 
 return scene

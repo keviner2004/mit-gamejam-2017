@@ -227,7 +227,6 @@ Character.new = function (options)
     end
 
     function character:walkRight()
-        print("!!!!!")
         self.sprite:setSequence("walkleft")
         self.sprite.xScale = -1
         self.sprite:play()
