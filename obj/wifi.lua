@@ -15,7 +15,7 @@ Wifi.new = function(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.i = options and options.i
 	wifi.j = options and options.j
-	wifi.type = "WIFI"
+	wifi.tag = "WIFI"
 
 	map.grid[i][j].obj = wifi
 	map.grid[i][j].dist = map.grid[i][j].dist -1
