@@ -1,13 +1,26 @@
 local MoveObject = require("MoveObject")
-
+local Sprite = require("libs.Sprite")
 local PhotoSpot = {}
 
 PhotoSpot.new = function(options)
 	options.dist = 0
 	local spot = MoveObject.new(options)
 
-	local rect = display.newRect(0, 0, 100, 100)
-    rect.fill = {0, 0.5, 0.5}
+	local rect = Sprite["ui"].newAnimation({
+        {
+            frames = {
+                "icon/heart/1",
+                "icon/heart/2",
+                "icon/heart/3",
+            },
+            time = 1000
+        }
+    })
+
+    rect.xScale = 1.5
+    rect.yScale = 1.5
+    rect:play()
+
     spot:insert(rect)
 
 	spot.tag = "photo"
