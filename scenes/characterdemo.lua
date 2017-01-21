@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local Character = require( "NewCharacter" ) 
+local FatGuy = require( "FatGuy" )
 local sfx = require("libs.sfx")
 local scene = composer.newScene()
  
@@ -34,7 +35,14 @@ function scene:show( event )
         sceneGroup:insert(ch)
         ch.x = display.contentWidth/2
         ch.y = display.contentHeight/2
+
+        local fatGuy = FatGuy.new()
+        fatGuy.x = display.contentWidth/2
+        fatGuy.y = display.contentHeight/4
         sfx:play("bg2")
+
+
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
  
