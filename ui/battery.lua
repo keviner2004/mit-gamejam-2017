@@ -4,11 +4,11 @@ local Battery = {}
 
 Battery.new = function()
     local frames = {
-        "icon/battery/5",
-        "icon/battery/4",
-        "icon/battery/3",
-        "icon/battery/2",
-        "icon/battery/1",
+        "icon/new battery/5",
+        "icon/new battery/4",
+        "icon/new battery/3",
+        "icon/new battery/2",
+        "icon/new battery/1",
     }
 
     local battery = Sprite["ui"].newAnimation({

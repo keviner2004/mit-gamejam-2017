@@ -14,6 +14,7 @@ local config = require( "GameConfig" )
 --ui
 local Battery = require("ui.Battery")
 local Head = require("ui.Head")
+local MissionPaper = require("ui.MissionPaper")
 
 local screen = require("libs.screen")
 local scene = composer.newScene()
@@ -212,16 +213,22 @@ function scene:show( event )
         --place ui
         local battery = Battery.new()
 
-        battery.x = display.contentWidth / 2
-        battery.y = display.contentHeight * 0.05
+        local head = Head.new()
+        head.x = screen.left + head.width/2
+        head.y = screen.top + head.height/2
+
+        battery.x = head.x + head.width/4
+        battery.y = head.y + head.height/2.2
         battery:setLevel(self.char.charge)
 
-        local head = Head.new()
-        head.x = battery.x - display.contentWidth * 0.05
-        head.y = display.contentHeight * 0.05
+        local missionPaper = MissionPaper.new()
+
+        missionPaper.x = screen.right - missionPaper.width/2 - missionPaper.width * 0.1
+        missionPaper.y = missionPaper.height/2 + missionPaper.width * 0.1
 
         sceneGroup:insert(battery)
         sceneGroup:insert(head)
+        sceneGroup:insert(missionPaper)
 
         self.batteryUI = battery
 
