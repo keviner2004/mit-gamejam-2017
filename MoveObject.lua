@@ -93,6 +93,16 @@ MoveObject.new = function(options)
 		self:moveToPos()
 	end
 
+	function obj:isUnderWifi()
+		local wifiCount = self.map.grid[self.i][self.j].wifiCount
+		if wifiCount > 0 then
+			return true
+		else
+			return false
+		end
+
+	end
+
 	return obj
 end
 
