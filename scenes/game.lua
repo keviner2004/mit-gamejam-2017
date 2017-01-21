@@ -1,6 +1,9 @@
 local composer = require( "composer" )
 
 local Wifi = require( "obj.wifi" )
+local PhotoSpot = require( "obj.PhotoSpot" )
+local ShareSpot = require( "obj.ShareSpot" )
+local ChargeStation = require( "obj.ChargeStation" )
 
 local FatGuy = require("FatGuy")
 local NewCharacter = require("NewCharacter")
@@ -67,6 +70,28 @@ function scene:show( event )
             map = scene.map,
             i = 2,
             j = 3,
+            areas = {Wifi.AREA_LEFT, Wifi.AREA_RIGHT},
+        })
+
+        local photoSpot = PhotoSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 1,
+            j = 1,
+        })
+
+        local shareSpot = ShareSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 1,
+            j = 2,
+        })
+
+        local chargeStation = ChargeStation.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 1,
+            j = 3,
         })
 
         self.char = NewCharacter.new({
@@ -96,6 +121,8 @@ function scene:show( event )
         scene.universe.x = config.contentCenterX
         scene.universe.y = config.contentCenterY
         sceneGroup:insert(scene.universe)
+
+        wifi:showGrid()
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

@@ -11,11 +11,14 @@ MoveObject.new = function(options)
 	obj.j = options and options.j
 	obj.transLock = false
 
-	obj.map.grid[obj.i][obj.j].obj = obj
+	if dist == 0 then
+		obj.map.grid[obj.i][obj.j].obj = nil
+	else 
+		obj.map.grid[obj.i][obj.j].obj = obj
+	end
 	obj.map.grid[obj.i][obj.j].dist = obj.map.grid[obj.i][obj.j].dist + dist
 
 	obj.x, obj.y = universe:contentToLocal( obj.map.grid[obj.i][obj.j]:localToContent(0,0) )
-
 
 	universe:insert(obj)
 
