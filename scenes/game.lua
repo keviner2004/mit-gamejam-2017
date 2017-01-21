@@ -166,8 +166,8 @@ function scene:action( event )
         self.char:toLeft()
     elseif event.phase == "walk" and event.dir == "right" then
         self.char:toRight()
-    elseif event.phase == "rotate" and event.dir == "clockwize" then
-        self.char:toRotateWifi()
+    elseif event.phase == "active" then
+        self.char:toActive()
     end
 end
  

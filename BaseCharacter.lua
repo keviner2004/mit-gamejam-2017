@@ -55,8 +55,8 @@ Character.new = function (options)
         self:dispathcActionEvent("walk", "right")
     end
 
-    function character:onRotateWifi()
-        self:dispathcActionEvent("rotate", "clockwize")
+    function character:onActive()
+        self:dispathcActionEvent("active", nil)
     end
 
     function character:hasWifi()

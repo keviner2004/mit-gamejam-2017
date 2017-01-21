@@ -12,7 +12,7 @@ MoveObject.new = function(options)
 	obj.transLock = false
 
 	if dist == 0 then
-		obj.map.grid[obj.i][obj.j].obj = nil
+		obj.map.grid[obj.i][obj.j].bg = obj
 	else 
 		obj.map.grid[obj.i][obj.j].obj = obj
 	end

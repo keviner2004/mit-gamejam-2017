@@ -1,5 +1,7 @@
 local Control = require("Control")
+
 local config = require("GameConfig")
+
 local Character = {}
 local BaseCharacter = require("BaseCharacter")
 
@@ -14,28 +16,45 @@ Character.new = function (options)
     	return self.map.grid[i][j].obj
     end
 
-    function character:toRotateWifi()
+    function character:toActive()
+    	-- rotate wifi
     	if self.facing == "down" and 
     			self.i ~= config.boardHSize and 
-    			self:getObj(self.i+1, self.j) and 
-    			self:getObj(self.i+1, self.j).tag == "WIFI" then
-    		self.map.grid[self.i+1][self.j].obj:rotateClockwize45()
+    			self:getObj(self.i+1, self.j) then
+    		if self:getObj(self.i+1, self.j).tag == "WIFI" then
+    			self.map.grid[self.i+1][self.j].obj:rotateClockwize45()
+    		end
 		elseif self.facing == "up" and 
 				self.i ~= 1 and 
-				self:getObj(self.i-1, self.j) and 
-				self:getObj(self.i-1, self.j).tag == "WIFI" then
-    		self.map.grid[self.i-1][self.j].obj:rotateClockwize45()
+				self:getObj(self.i-1, self.j) then
+			if self:getObj(self.i-1, self.j).tag == "WIFI" then
+    			self.map.grid[self.i-1][self.j].obj:rotateClockwize45()
+    		end
 		elseif self.facing == "left" and 
 				self.j ~= 1 and 
-				self:getObj(self.i, self.j-1) and 
-				self:getObj(self.i, self.j-1).tag == "WIFI" then
-			self.map.grid[self.i][self.j-1].obj:rotateClockwize45()
+				self:getObj(self.i, self.j-1) then
+			if self:getObj(self.i, self.j-1).tag == "WIFI" then
+				self.map.grid[self.i][self.j-1].obj:rotateClockwize45()
+			end
 		elseif self.facing == "right" and 
 				self.j ~= config.boardWSize and 
-				self:getObj(self.i, self.j+1) and 
-				self:getObj(self.i, self.j+1).tag == "WIFI" then
-			self.map.grid[self.i][self.j+1].obj:rotateClockwize45()
-		end    		
+				self:getObj(self.i, self.j+1) then
+			if self:getObj(self.i, self.j+1).tag == "WIFI" then
+				self.map.grid[self.i][self.j+1].obj:rotateClockwize45()
+			end
+		end
+
+		-- else
+		if self.map[self.i][self.j].bg then
+			if ifself.map[self.i][self.j].bg.tag == "charge" then
+
+			elseif ifself.map[self.i][self.j].bg.tag == "photo" then
+
+			elseif ifself.map[self.i][self.j].bg.tag == "share" then
+
+			end
+		end
+
     end
 
     return character

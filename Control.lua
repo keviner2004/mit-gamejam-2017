@@ -28,7 +28,7 @@ Control.new = function (target)
                 target:onWalkRight()
             elseif keyName == "space" then
                 spacePressing = false
-                target:onRotateWifi()
+                target:onActive()
             end
         elseif phase == "down" then
             if keyName == "up" then
