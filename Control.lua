@@ -15,16 +15,16 @@ Control.new = function (target)
         if phase == "up" then
             if keyName == "up" then
                 upPressing = false
-                target:walkUp()
+                target:onWalkUp()
             elseif keyName == "down" then
                 downPressing = false
-                target:walkDown()
+                target:onWalkDown()
             elseif keyName == "left" then
                 leftPressing = false
-                target:walkLeft()
+                target:onWalkLeft()
             elseif keyName == "right" then
                 rightPressing = false
-                target:walkRight()
+                target:onWalkRight()
             end
         elseif phase == "down" then
             if keyName == "up" then

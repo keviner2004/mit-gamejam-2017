@@ -3,7 +3,6 @@ local Character = {}
 
 Character.new = function (options)
     local character = display.newGroup()
-    local rect = display.newRect(0, 0, 100, 100)
 
     character.map = options and options.map
     character.focus = options and options.focus or 100
@@ -12,7 +11,8 @@ Character.new = function (options)
     character.focusOffset = options and options.focusOffset or 0.1
     character.charge = options and options.charge or 4
     character.mapPos = {x = -1, y = -1}
-    character:insert(rect)
+    character.animation = {}
+    character.spriteTag = "character"
 
     function character:dispatchFocusChangeEvent()
         if self.dispatchEvent then
@@ -27,20 +27,28 @@ Character.new = function (options)
         self.control = Control.new(character)
     end
 
-    function character:walkUp()
-        print("Please overwride the walkUp function")
+    function character:dispathcActionEvent(phase, dir)
+        self:dispatchEvent({
+            name = "action",
+            phase = phase,
+            dir = dir,
+        })
     end
 
-    function character:walkDown()
-        print("Please overwride the walkDown function")
+    function character:onWalkUp()
+        self:dispathcActionEvent("walk", "up")
     end
 
-    function character:walkLeft()
-        print("Please overwride the walkLeft function")
+    function character:onWalkDown()
+        self:dispathcActionEvent("walk", "down")
     end
 
-    function character:walkRight()
-        print("Please overwride the walkRight function")
+    function character:onWalkLeft()
+        self:dispathcActionEvent("walk", "left")
+    end
+
+    function character:onWalkRight()
+        self:dispathcActionEvent("walk", "right")
     end
 
     function character:hasWifi()
@@ -63,6 +71,57 @@ Character.new = function (options)
             end
         end
     end
+
+    function character:setSpriteTag(tag)
+        self.spriteTag = tag
+    end
+
+    function character:setAnimation(name, frames)
+        local sequence = {}
+        sequence.name = name
+        sequence.frames = frames
+        self.animation[#self.animation+1] = sequence
+    end
+
+    function character:setWalkUpAnimation(frames)
+        setAnimation("walkup", frames)
+    end
+
+    function character:setWalkDownAnimation()
+        setAnimation("walkdown", frames)
+    end
+
+    function character:setWalkLeftAnimation()
+        setAnimation("idleleft", frames)
+    end
+
+    function character:setWalkRightAnimation()
+        setAnimation("idleright", frames)
+    end
+
+    function character:setIdleUpAnimation(frames)
+        setAnimation("idleup", frames)
+    end
+
+    function character:setIdleDownAnimation()
+        setAnimation("idledown", frames)
+    end
+
+    function character:setIdleLeftAnimation()
+        setAnimation("idleleft", frames)
+    end
+
+    function character:setIdleRightAnimation()
+        setAnimation("idleright", frames)
+    end
+
+    function character:genAnimation()
+        self.sprite = Sprite[self.spriteTag].newAnimation(self.animation)
+    end
+
+    function character:play()
+        self.sprite:play()
+    end    
 
     return character
 end

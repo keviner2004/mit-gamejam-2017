@@ -7,7 +7,6 @@ Character.new = function (options)
     local rect = display.newRect(0, 0, 100, 100)
     character:insert(rect)
     character:setControl()
-
     return character
 end
 
