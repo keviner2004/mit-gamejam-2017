@@ -383,7 +383,9 @@ end
 
 function scene:focus( event )
     --print("Focus changed: ", event.value, " has wifi", event.hasWifi)
-
+    if not self.head then
+        return
+    end
     if event.value < self.char.maxFocus * 0.25 then
         self.head:setLevel(1)
     elseif event.value < self.char.maxFocus * 0.5 then
