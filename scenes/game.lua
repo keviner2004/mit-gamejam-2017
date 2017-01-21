@@ -123,6 +123,7 @@ function scene:show( event )
         sceneGroup:insert(scene.universe)
 
         wifi:showGrid()
+        wifi:setDir(4)
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

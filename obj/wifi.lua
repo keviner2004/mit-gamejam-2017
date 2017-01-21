@@ -1,5 +1,5 @@
 local MoveObject = require("MoveObject")
-
+local Sprite = require("libs.Sprite")
 local Wifi = {}
 
 Wifi.AREA_LEFTTOP = 1
@@ -16,7 +16,6 @@ Wifi.new = function(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
 	wifi.indicatorGroup = display.newGroup()
-
 
 	function wifi:rotateClockwize45()
 		self:hideGrid()
@@ -272,7 +271,64 @@ Wifi.new = function(options)
 		end
 	end
 
+	function wifi:setDir(dir)
+		self.sprite:setSequence(tostring(dir))
+	end
+
 	wifi:init()
+
+	wifi.sprite = Sprite["objects"].newAnimation({
+		{
+			name = "1",
+			frames = {
+				"wifi/1"
+			}
+		},
+		{
+			name = "2",
+			frames = {
+				"wifi/2"
+			}
+		},
+		{
+			name = "3",
+			frames = {
+				"wifi/3"
+			}
+		},
+		{
+			name = "4",
+			frames = {
+				"wifi/4"
+			}
+		},
+		{
+			name = "5",
+			frames = {
+				"wifi/5"
+			}
+		},
+		{
+			name = "6",
+			frames = {
+				"wifi/6"
+			}
+		},
+		{
+			name = "7",
+			frames = {
+				"wifi/7"
+			}
+		},
+		{
+			name = "8",
+			frames = {
+				"wifi/8"
+			}
+		}
+	})
+
+	wifi:insert(wifi.sprite)
 
 	return wifi
 end
