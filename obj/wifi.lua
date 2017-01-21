@@ -1,5 +1,6 @@
 local MoveObject = require("MoveObject")
 local Sprite = require("libs.Sprite")
+local sfx = require("libs.sfx")
 local Wifi = {}
 
 Wifi.AREA_LEFTTOP = 1
@@ -21,6 +22,7 @@ Wifi.new = function(options)
 	wifi.y = wifi.y-60
 
 	function wifi:rotateClockwize45()
+		sfx:play("switch")
 		self:setDir(self.dir + 1)
 		self:hideGrid()
 		local oldAffectedAreas = {}
@@ -110,6 +112,7 @@ Wifi.new = function(options)
 	end
 
 	function wifi:rotateClockwizen45()
+		sfx:play("switch")
 		self:setDir(self.dir - 1)
 		self:hideGrid()
 		local oldAffectedAreas = {}

@@ -11,6 +11,8 @@ local NewCharacter = require("NewCharacter")
 local GridContainer = require( "libs.ui.GridContainer" )
 local config = require( "GameConfig" )
 
+local sfx = require("libs.sfx")
+
 --ui
 local Battery = require("ui.Battery")
 local Head = require("ui.Head")
@@ -63,8 +65,7 @@ function scene:show( event )
             maxW = config.contentWidth,
             maxH = config.contentHeight,
         })
-        self.universe:insert(self.map)
-        
+        self.universe:insert(self.map)        
 
         distList = {
             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -96,7 +97,7 @@ function scene:show( event )
 
         -- add background
         self.bgImage = display.newImage('res/level1.png')
-        self.bgImage.y = self.map.gridH/2
+        --self.bgImage.y = self.map.gridH/2
         self.universe:insert(self.bgImage)
         self.bgImage:toBack()
 
@@ -227,7 +228,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
- 
+        sfx:play("bgm", {loops=-1})
     end
 end
  
@@ -265,7 +266,7 @@ function scene:enterFrame()
     end
 end
 
-function scene:battery( event)
+function scene:battery(event)
     print("Charge changed ", event.charge)
     self.batteryUI:setLevel(event.charge)
 end
