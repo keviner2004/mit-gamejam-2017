@@ -68,7 +68,9 @@ MoveObject.new = function(options)
 
 	function obj:toRight()
 		if self.j == config.boardWSize or self.map.grid[self.i][self.j+1].dist < 0 or self.transLock then
-			self:dispathStuckEvent()
+			if self.j == config.boardWSize or self.map.grid[self.i][self.j+1].dist < 0 then
+				self:dispathStuckEvent()
+			end
 			return
 		end
 		self.transLock = true
@@ -84,7 +86,9 @@ MoveObject.new = function(options)
 
 	function obj:toDown()
 		if self.i == config.boardHSize or self.map.grid[self.i+1][self.j].dist < 0 or self.transLock then
-			self:dispathStuckEvent()
+			if self.i == config.boardHSize or self.map.grid[self.i+1][self.j].dist < 0 then
+				self:dispathStuckEvent()
+			end
 			return
 		end
 		self.transLock = true
@@ -100,7 +104,9 @@ MoveObject.new = function(options)
 
 	function obj:toLeft()
 		if self.j == 1 or self.map.grid[self.i][self.j-1].dist < 0 or self.transLock then
-			self:dispathStuckEvent()
+			if self.j == 1 or self.map.grid[self.i][self.j-1].dist < 0 then
+				self:dispathStuckEvent()
+			end
 			return
 		end
 		self.transLock = true
@@ -116,7 +122,9 @@ MoveObject.new = function(options)
 
 	function obj:toUp()
 		if self.i == 1 or self.map.grid[self.i-1][self.j].dist < 0 or self.transLock then
-			self:dispathStuckEvent()
+			if self.i == 1 or self.map.grid[self.i-1][self.j].dist < 0 then
+				self:dispathStuckEvent()
+			end
 			return
 		end
 		self.transLock = true

@@ -47,6 +47,10 @@ Character.new = function (options)
     character:genAnimation()
 
     function character:walkRight()
+        if self.walkingStatus == "right" then
+            return
+        end
+        self.walkingStatus = "right"
         self.sprite:setSequence("walkright")
         self.sprite.xScale = 1
         self.sprite:play()

@@ -99,7 +99,7 @@ Character.new = function (options)
             self:photoRight()
         end
         sfx:play("photo")
-        self:showPhoto()
+        self:showPhoto(false)
     end
 
     function character:toSelfPhoto()
@@ -114,7 +114,7 @@ Character.new = function (options)
             self:photoRight()
         end
         sfx:play("photo")
-        self:showPhoto()
+        self:showPhoto(true)
     end
 
     function character:showPhoto(photoSelf)
@@ -197,14 +197,13 @@ Character.new = function (options)
             end
         end
         if event.dir == "down" then
-            print("QQQQQ!!!")
             character:walkDown()
         elseif event.dir == "up" then
-            print("QQQQQ")
             character:walkUp()
         elseif event.dir == "left" then
             character:walkLeft()
         elseif event.dir == "right" then
+            print("walkRight!!!")
             character:walkRight()
         end
     end)

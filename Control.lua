@@ -20,16 +20,16 @@ Control.new = function (target)
         if phase == "up" then
             if keyName == "up" then
                 upPressing = false
-                target:onWalkUp()
+                --target:onWalkUp()
             elseif keyName == "down" then
                 downPressing = false
-                target:onWalkDown()
+                --target:onWalkDown()
             elseif keyName == "left" then
                 leftPressing = false
-                target:onWalkLeft()
+                --target:onWalkLeft()
             elseif keyName == "right" then
                 rightPressing = false
-                target:onWalkRight()
+                --target:onWalkRight()
             elseif keyName == "e" then
                 spacePressing = false
                 target:onActive("e")
@@ -47,16 +47,16 @@ Control.new = function (target)
         elseif phase == "down" then
             if keyName == "up" then
                 upPressing = true
-                
+                target:onWalkUp()
             elseif keyName == "down" then
                 downPressing = true
-                
+                target:onWalkDown()
             elseif keyName == "left" then
                 leftPressing = true
-                
+                target:onWalkLeft()
             elseif keyName == "right" then
                 rightPressing = true
-
+                target:onWalkRight()
             elseif keyName == "space" then
                 spacePressing = true    
                 

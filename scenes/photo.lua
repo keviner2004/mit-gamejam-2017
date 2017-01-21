@@ -46,6 +46,10 @@ function scene:show( event )
                 end
         })
 
+        if event.params and event.params.photoSelf then
+        else
+        end
+
     end
 end
  

@@ -191,44 +191,64 @@ Character.new = function (options)
     end
 
     function character:idleUp()
-       self.sprite:setSequence("idleup") 
-       self.sprite:play()
+        self.walkingStatus = "idle"
+        self.sprite:setSequence("idleup") 
+        self.sprite:play()
     end
 
     function character:idleDown()
+        self.walkingStatus = "idle"
         self.sprite:setSequence("idledown")
         self.sprite:play()
     end
 
     function character:idleLeft()
+        self.walkingStatus = "idle"
         self.sprite:setSequence("idleleft")
         self.sprite.xScale = 1
         self.sprite:play()
     end
 
     function character:idleRight()
+        self.walkingStatus = "idle"
         self.sprite:setSequence("idleleft")
         self.sprite.xScale = -1
         self.sprite:play()
     end
 
     function character:walkUp()
-       self.sprite:setSequence("walkup") 
-       self.sprite:play()
+        if self.walkingStatus == "up" then
+            return
+        end 
+        self.walkingStatus = "up"
+        self.sprite:setSequence("walkup") 
+        self.sprite:play()
     end
 
     function character:walkDown()
-       self.sprite:setSequence("walkdown") 
-       self.sprite:play()
+        if self.walkingStatus == "down" then
+            return
+        end 
+        self.walkingStatus = "down"
+        self.sprite:setSequence("walkdown") 
+        self.sprite:play()
     end
 
     function character:walkLeft()
+        if self.walkingStatus == "left" then
+            return
+        end 
+        self.walkingStatus = "left"
         self.sprite:setSequence("walkleft")
         self.sprite.xScale = 1
         self.sprite:play()
     end
 
     function character:walkRight()
+        if self.walkingStatus == "right" then
+            return
+        end 
+        self.walkingStatus = "right"
         self.sprite:setSequence("walkleft")
         self.sprite.xScale = -1
         self.sprite:play()
