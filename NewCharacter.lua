@@ -43,7 +43,7 @@ Character.new = function (options)
     })
 
     character:setIdleDownAnimation({
-        "up/normal/1",
+        "front/normal/1",
     })
 
     character:setIdleLeftAnimation({
@@ -56,7 +56,7 @@ Character.new = function (options)
     })
 
     character:setPhotoDownAnimation({
-        "up/photographing/1",
+        "front/photographing/1",
     })
 
     character:setPhotoLeftAnimation({
@@ -68,7 +68,7 @@ Character.new = function (options)
     })
 
     character:setSelfDownAnimation({
-        "up/self/1",
+        "front/self/1",
     })
 
     character:setSelfLeftAnimation({
@@ -151,6 +151,7 @@ Character.new = function (options)
     end)
     ----[[
     character:addEventListener("movedone", function(event)
+        print("Facing! ", character.facing)
         if character.facing == "down" then
             character:idleDown()
         elseif character.facing == "up" then
