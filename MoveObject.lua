@@ -10,7 +10,7 @@ MoveObject.new = function(options)
 	obj.i = options and options.i
 	obj.j = options and options.j
 	obj.transLock = false
-
+	obj.moveCount = 0
 	if dist == 0 then
 		obj.map.grid[obj.i][obj.j].bg = obj
 	else 
@@ -26,6 +26,13 @@ MoveObject.new = function(options)
 		obj.transLock = false
 	end
 
+	function obj:dispatchMoveEvent()
+		self:dispatchEvent({
+			name = "move",
+			count = self.moveCount,
+		})
+	end
+
 	function obj:moveToPos()
 		local x, y = universe:contentToLocal( self.map.grid[self.i][self.j]:localToContent(0,0) )
 		transition.to(self, {
@@ -34,6 +41,8 @@ MoveObject.new = function(options)
 			onComplete = onComplete,
 			time = 100,
 		})
+		self.moveCount = self.moveCount + 1
+		self:dispatchMoveEvent()
 	end	
 
 	function obj:toRight()
