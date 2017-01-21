@@ -40,6 +40,8 @@ MoveObject.new = function(options)
 		self:dispatchEvent({
 			name = "move",
 			count = self.moveCount,
+			i = self.i,
+			j = self.j,
 		})
 	end
 

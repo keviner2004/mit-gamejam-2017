@@ -126,7 +126,11 @@ function scene:show( event )
                 end
             end
         end
-
+        self.char:addEventListener( "move", function(event)
+            if event.i == 1 and event.j == 13 then
+                self:gotoGoodEnd()
+            end
+        end)
         self.char:addEventListener( "move", reInsert)
         self.char:addEventListener( "action", self )
         self.char:addEventListener( "battery", self )
@@ -299,12 +303,15 @@ local frame = -1
 function scene:gotoBadEnd()
     composer.gotoScene("scenes.badend", {
         effect = "fade",
-        time = 1200,
+        time = 1000,
     })
 end
 
 function scene:gotoGoodEnd()
-    composer.gotoScene("scenes.goodend") 
+    composer.gotoScene("scenes.goodend", {
+        effect = "fade",
+        time = 1000,
+    })
 end
 
 function scene:enterFrame()
