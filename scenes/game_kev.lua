@@ -1,8 +1,13 @@
 local composer = require( "composer" )
 
 local Wifi = require( "obj.wifi" )
+local PhotoSpot = require( "obj.PhotoSpot" )
+local ShareSpot = require( "obj.ShareSpot" )
+local ChargeStation = require( "obj.ChargeStation" )
+local Switch = require( "obj.WifiSwitch" )
 
 local FatGuy = require("FatGuy")
+local NewCharacter = require("NewCharacter")
  
 local GridContainer = require( "libs.ui.GridContainer" )
 local config = require( "GameConfig" )
@@ -38,8 +43,11 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        config.currentLevel = 1
+
         scene.universe = display.newGroup()
 
+        -- set up map
         scene.map = GridContainer.new({
             cols = config.boardWSize,
             rows = config.boardHSize,
@@ -47,15 +55,26 @@ function scene:show( event )
             maxH = config.contentHeight,
         })
 
+        distList = {
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, -1,  0, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0, -1,  0,  0,  0,  0,  0,  0, -1, -1, -1},
+            {-1, -1, -1,  0, -1,  0, -1,  0, -1,  0, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1,  0, -1, -1, -1, -1},
+            {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1},
+            {-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        }
+
         for i = 1, config.boardHSize do
             for j = 1, config.boardWSize do
+                scene.map.grid[i][j].dist = distList[i][j]
                 scene.map.grid[i][j].wifiCount = 0
-                scene.map.grid[i][j].dist = 0
-
-
                 if config.mode == config.MODE_DEBUG then    
                     local text = display.newText({
-                        text = '('..tostring(i)..', '..tostring(j)..')',
+                        text = '('..tostring(i)..', '..tostring(j)..') '..tostring(scene.map.grid[i][j].dist),
                         font = native.systemFont,
                         fontSize = 20,
                     })
@@ -64,32 +83,86 @@ function scene:show( event )
             end
         end
 
-        local fat = FatGuy.new({
-            universe = scene.universe,
-            map = scene.map,
-            i = 2,
-            j = 2,
-        })
+        -- add background
+        scene.bgImage = display.newImage('res/level1.png')
+        scene.bgImage.xScale = 120/100
+        scene.bgImage.yScale = 120/100
+        scene.bgImage.y = scene.map.gridH/2
+        scene.universe:insert(scene.bgImage)
+        scene.bgImage:toBack()
+
+        -- init objs
 
         local wifi = Wifi.new({
             universe = scene.universe,
             map = scene.map,
-            i = 2,
-            j = 3,
-            areas = {Wifi.AREA_LEFT, Wifi.AREA_RIGHT}
+            i = 8,
+            j = 11,
+            areas = {Wifi.AREA_LEFT},
         })
 
+        
+        local fat = FatGuy.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 7,
+            j = 10,
+        })
+
+        local switch = Switch.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 7,
+            j = 11,
+        })
+
+        --[[
+        local photoSpot = PhotoSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 1,
+            j = 1,
+        })
+
+        local shareSpot = ShareSpot.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 1,
+            j = 2,
+        })
+
+        local chargeStation = ChargeStation.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 1,
+            j = 3,
+        })
+        ]]
+
+        self.char = NewCharacter.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 10,
+            j = 4,
+        })
+        self.char:addEventListener( "action", scene )
+
         scene.universe:insert(scene.map)
+
         scene.universe.x = config.contentCenterX
         scene.universe.y = config.contentCenterY
         sceneGroup:insert(scene.universe)
 
         wifi:showGrid()
+        wifi:setDir(4)
+        
+        switch:setDir("front")
+        switch:op(true)
 
-        timer.performWithDelay(1000, function()
-            wifi:rotateClockwize45()
-        end, -1)
- 
+        timer.performWithDelay(3000, function()
+            switch:op(false)
+        end)
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
  
@@ -121,6 +194,22 @@ function scene:destroy( event )
  
 end
  
+
+function scene:action( event )
+    if event.phase == "walk" and event.dir == "up" then
+        self.char:toUp()
+    elseif event.phase == "walk" and event.dir == "down" then
+        self.char:toDown()
+    elseif event.phase == "walk" and event.dir == "left" then
+        self.char:toLeft()
+    elseif event.phase == "walk" and event.dir == "right" then
+        self.char:toRight()
+    elseif event.phase == "rotate" and event.dir == "clockwise" then
+        self.char:toRotateWifi(1)
+    elseif event.phase == "rotate" and event.dir == "anticlockwise" then
+        self.char:toRotateWifi(-1)
+    end
+end
  
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
@@ -130,5 +219,5 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
- 
+
 return scene
