@@ -3,6 +3,7 @@ local composer = require( "composer" )
 local Wifi = require( "obj.wifi" )
 
 local FatGuy = require("FatGuy")
+local NewCharacter = require("NewCharacter")
  
 local GridContainer = require( "libs.ui.GridContainer" )
 local config = require( "GameConfig" )
@@ -51,16 +52,6 @@ function scene:show( event )
             for j = 1, config.boardWSize do
                 scene.map.grid[i][j].wifiCount = 0
                 scene.map.grid[i][j].dist = 0
-
-
-                if config.mode == config.MODE_DEBUG then    
-                    local text = display.newText({
-                        text = '('..tostring(i)..', '..tostring(j)..')',
-                        font = native.systemFont,
-                        fontSize = 20,
-                    })
-                    scene.map:insertAt(text, i, j)
-                end
             end
         end
 
@@ -77,6 +68,28 @@ function scene:show( event )
             i = 2,
             j = 3,
         })
+
+        self.char = NewCharacter.new({
+            universe = scene.universe,
+            map = scene.map,
+            i = 2,
+            j = 1,
+        })
+        self.char:addEventListener( "action", scene )
+
+        for i = 1, config.boardHSize do
+            for j = 1, config.boardWSize do
+
+                if config.mode == config.MODE_DEBUG then    
+                    local text = display.newText({
+                        text = '('..tostring(i)..', '..tostring(j)..') '..tostring(scene.map.grid[i][j].dist),
+                        font = native.systemFont,
+                        fontSize = 20,
+                    })
+                    scene.map:insertAt(text, i, j)
+                end
+            end
+        end
 
         scene.universe:insert(scene.map)
 
@@ -115,6 +128,21 @@ function scene:destroy( event )
  
 end
  
+
+function scene:action( event )
+
+    if event.phase == "walk" and event.dir == "up" then
+        self.char:toUp()
+    elseif event.phase == "walk" and event.dir == "down" then
+        self.char:toDown()
+    elseif event.phase == "walk" and event.dir == "left" then
+        self.char:toLeft()
+    elseif event.phase == "walk" and event.dir == "right" then
+        self.char:toRight()
+    elseif event.phase == "rotate" and event.dir == "clockwize" then
+        self.char:toRotateWifi()
+    end
+end
  
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
@@ -124,5 +152,5 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
- 
+
 return scene

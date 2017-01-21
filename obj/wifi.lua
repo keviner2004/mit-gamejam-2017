@@ -16,9 +16,6 @@ Wifi.new = function(options)
 	wifi.affectedAreas = options and options.areas
 	wifi.tag = "WIFI"
 
-	wifi.map.grid[wifi.i][wifi.j].obj = wifi
-	wifi.map.grid[wifi.i][wifi.j].dist = wifi.map.grid[wifi.i][wifi.j].dist -1
-
 	function wifi:rotateClockwize45()
 		-- change self.map's wifi count
 		for i = 1, #self.affectedAreas do
