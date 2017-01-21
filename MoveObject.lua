@@ -4,6 +4,7 @@ local MoveObject = {}
 MoveObject.new = function(options)
 	local obj = display.newGroup()
 	local universe = options and options.universe or nil
+	local dist = options and options.dist or -1
 
 	obj.map = options and options.map or nil
 	obj.i = options and options.i
@@ -11,7 +12,7 @@ MoveObject.new = function(options)
 	obj.transLock = false
 
 	obj.map.grid[obj.i][obj.j].obj = obj
-	obj.map.grid[obj.i][obj.j].dist = obj.map.grid[obj.i][obj.j].dist -1
+	obj.map.grid[obj.i][obj.j].dist = obj.map.grid[obj.i][obj.j].dist + dist
 
 	obj.x, obj.y = universe:contentToLocal( obj.map.grid[obj.i][obj.j]:localToContent(0,0) )
 
