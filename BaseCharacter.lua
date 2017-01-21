@@ -234,48 +234,73 @@ Character.new = function (options)
         self.sprite:play()
     end
 
+    function character:ajustToIdle(time)
+        if not time then
+            time = 1000
+        end
+        timer.performWithDelay(time, function()
+            if self.facing == "up" then
+                self:idleUp()
+            elseif self.facing == "down" then
+                self:idleDown()
+            elseif self.facing == "left" then
+                self:idleLeft()
+            elseif self.facing == "right" then
+                self:idleRight()
+            end
+        end)
+    end
+
     function character:photoUp()
         self.sprite:setSequence("photoup")
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:photoDown()
         self.sprite:setSequence("photodown")
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:photoLeft()
         self.sprite:setSequence("photoleft")
         self.sprite.xScale = 1
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:photoRight()
         self.sprite:setSequence("photoleft")
         self.sprite.xScale = -1
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:selfPhotoTop()
         self.sprite:setSequence("selftop")
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:selfPhotoDown()
         self.sprite:setSequence("selfdown")
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:selfPhotoLeft()
         self.sprite:setSequence("selfleft")
         self.sprite.xScale = 1
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:selfPhotoRight()
         self.sprite:setSequence("selfleft")
         self.sprite.xScale = -1
         self.sprite:play()
+        self:ajustToIdle()
     end
 
     function character:play()
