@@ -109,6 +109,7 @@ function scene:show( event )
             j = 4,
         })
         self.char:addEventListener( "action", scene )
+        self.char:addEventListener( "battery", scene )
 
         -- init objs
         local wifi = Wifi.new({
@@ -215,7 +216,7 @@ function scene:show( event )
 
         battery.x = display.contentWidth / 2
         battery.y = display.contentHeight * 0.05
-        battery:setLevel(3)
+        battery:setLevel(self.char.charge)
 
         local head = Head.new()
         head.x = battery.x - display.contentWidth * 0.05
@@ -223,6 +224,8 @@ function scene:show( event )
 
         sceneGroup:insert(battery)
         sceneGroup:insert(head)
+
+        self.batteryUI = battery
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
@@ -251,6 +254,11 @@ end
 function scene:destroy( event )
     local sceneGroup = self.view
     -- Code here runs prior to the removal of scene's view
+end
+
+function scene:battery( event)
+    print("Charge changed ", event.charge)
+    self.batteryUI:setLevel(event.charge)
 end
 
 function scene:action( event )

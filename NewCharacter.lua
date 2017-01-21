@@ -72,6 +72,19 @@ Character.new = function (options)
 		end    		
     end
 
+    character:addEventListener("move", function(event)
+        print("Character moved ", event.count, character.charge)
+        if event.count % 10 == 0 then
+            if character.charge > 1 then
+                character.charge = character.charge -1
+                character:dispatchEvent({
+                    name = "battery",
+                    charge = character.charge
+                })
+            end
+        end
+    end)
+
     return character
 end
 
