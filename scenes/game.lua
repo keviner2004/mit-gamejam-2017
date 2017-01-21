@@ -269,6 +269,9 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
+        Runtime:addEventListener("key", self.char.control)
+        Runtime:addEventListener("enterFrame", self)
+        self.view:remove(self.universe)
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
@@ -285,12 +288,22 @@ end
 
 local frame = -1
 
+function scene:gotoBadEnd()
+    
+end
+
+function scene:gotoGoodEnd()
+    
+end
+
 function scene:enterFrame()
     frame = (frame+1)%60
 
     if frame == 0 and self.remainTime > 0 then
         self.remainTime = self.remainTime -1
         self.remainTimeText.text = os.date("!%M"..":".."%S", self.remainTime)
+    elseif frame == 0 and self.remainTime == 0 then
+
     end
 end
 
@@ -333,6 +346,7 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+
 -- -----------------------------------------------------------------------------------
 Runtime:addEventListener( "enterFrame", scene )
 
