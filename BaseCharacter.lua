@@ -95,15 +95,14 @@ Character.new = function (options)
         self.spriteTag = tag
     end
 
-    function character:setAnimation(name, frames, time)
-        if not time then
-            time = 1000
-        end
-
+    function character:setAnimation(name, frames, options)
+        local time = options and options.time or 1000
+        local loopCount = options and options.loopCount or -1
         local sequence = {}
         sequence.name = name
         sequence.frames = frames
         sequence.time = time
+        sequence.loopCount = loopCount
         self.animation[#self.animation+1] = sequence
     end
 
@@ -116,7 +115,9 @@ Character.new = function (options)
     end
 
     function character:setWalkLeftAnimation(frames)
-        self:setAnimation("walkleft", frames, 800)
+        self:setAnimation("walkleft", frames, {
+            time = 800
+        })
     end
 
     function character:setWalkRightAnimation(frames)
@@ -156,35 +157,51 @@ Character.new = function (options)
     end
 
     function character:setPhotoUpAnimation(frames)
-        self:setAnimation("photoup", frames)
+        self:setAnimation("photoup", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setPhotoDownAnimation(frames)
-        self:setAnimation("photodown", frames)
+        self:setAnimation("photodown", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setPhotoLeftAnimation(frames)
-        self:setAnimation("photoleft", frames)
+        self:setAnimation("photoleft", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setPhotoRightAnimation(frames)
-        self:setAnimation("photoright", frames)
+        self:setAnimation("photoright", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setSelfUpAnimation(frames)
-        self:setAnimation("photoup", frames)
+        self:setAnimation("photoup", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setSelfDownAnimation(frames)
-        self:setAnimation("photodown", frames)
+        self:setAnimation("photodown", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setSelfLeftAnimation(frames)
-        self:setAnimation("photoleft", frames)
+        self:setAnimation("photoleft", frames, {
+            loopCount = 1
+        })
     end
 
     function character:setSelfRightAnimation(frames)
-        self:setAnimation("photoright", frames)
+        self:setAnimation("photoright", frames, {
+            loopCount = 1
+        })
     end
 
     function character:genAnimation()
