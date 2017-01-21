@@ -19,7 +19,7 @@ Wifi.new = function(options)
 	wifi.indicatorGroup = display.newGroup()
 	wifi.dir = 1
 
-	wifi.y = wifi.y-60
+	--wifi.y = wifi.y-60
 
 	function wifi:rotateClockwize45()
 		sfx:play("switch")

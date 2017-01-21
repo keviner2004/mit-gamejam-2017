@@ -106,8 +106,24 @@ function scene:show( event )
             map = self.map,
             i = 10,
             j = 4,
+            yOffset = -40,
         })
 
+        local reInsert = function()
+            for i = 1, config.boardHSize do
+                for j = 1, config.boardWSize do
+                    grid = self.map.grid[i][j]
+                    if grid.bg then
+                        self.universe:insert(grid.bg)
+                    end
+                    if grid.obj then
+                        self.universe:insert(grid.obj)
+                    end
+                end
+            end
+        end
+
+        self.char:addEventListener( "move", reInsert)
         self.char:addEventListener( "action", self )
         self.char:addEventListener( "battery", self )
 
@@ -118,6 +134,7 @@ function scene:show( event )
             i = 8,
             j = 11,
             areas = {Wifi.AREA_LEFT},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(7)
@@ -128,6 +145,7 @@ function scene:show( event )
             i = 6,
             j = 5,
             areas = {Wifi.AREA_LEFTTOP},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(8)
@@ -138,6 +156,7 @@ function scene:show( event )
             i = 4,
             j = 5,
             areas = {Wifi.AREA_BTM},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(5)
@@ -148,6 +167,7 @@ function scene:show( event )
             i = 4,
             j = 9,
             areas = {Wifi.AREA_TOP},
+            yOffset = -60,
         })
         wifi:showGrid()
         wifi:setDir(1)
@@ -157,21 +177,21 @@ function scene:show( event )
             map = self.map,
             i = 7,
             j = 10,
-        })
+        }):addEventListener( "move", reInsert)
 
         FatGuy.new({
             universe = self.universe,
             map = self.map,
             i = 3,
             j = 8,
-        })
+        }):addEventListener( "move", reInsert)
 
         FatGuy.new({
             universe = self.universe,
             map = self.map,
             i = 5,
             j = 4,
-        })
+        }):addEventListener( "move", reInsert)
 
         PhotoSpot.new({
             universe = self.universe,
@@ -199,6 +219,7 @@ function scene:show( event )
             map = self.map,
             i = 5,
             j = 7,
+            yOffset = -60,
         })
 
         self.remainTimeText = display.newText({
@@ -306,7 +327,6 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
-
 Runtime:addEventListener( "enterFrame", scene )
 
 return scene
