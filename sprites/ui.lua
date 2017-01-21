@@ -1,7 +1,7 @@
 --
 -- created with TexturePacker (http://www.codeandweb.com/texturepacker)
 --
--- $TexturePacker:SmartUpdate:763ecbd0664967752efac00b0ae592af:03816097a7948cc2a1f4a2d97960f5e3:2f9aa7ed53d9dd429372ba2a00184b66$
+-- $TexturePacker:SmartUpdate:c109591a9f5cad4aefff5d0ca7c86b22:958014cadb5e827de4f8756b6c931e89:2f9aa7ed53d9dd429372ba2a00184b66$
 --
 -- local sheetInfo = require("mysheet")
 -- local myImageSheet = graphics.newImageSheet( "mysheet.png", sheetInfo:getSheet() )
@@ -16,40 +16,100 @@ SheetInfo.sheet =
     
         {
             -- face/1
-            x=1,
-            y=1478,
+            x=391,
+            y=1046,
             width=100,
             height=100,
 
         },
         {
             -- face/2
-            x=103,
-            y=1478,
+            x=391,
+            y=1148,
             width=100,
             height=100,
 
         },
         {
             -- face/3
-            x=1,
-            y=1580,
+            x=391,
+            y=1250,
             width=100,
             height=100,
 
         },
         {
             -- face/4
-            x=103,
-            y=1580,
+            x=391,
+            y=1352,
             width=100,
             height=100,
 
         },
         {
-            -- icon/battery/1
+            -- HEAD/1
+            x=1,
+            y=1214,
+            width=184,
+            height=184,
+
+            sourceX = 7,
+            sourceY = 5,
+            sourceWidth = 200,
+            sourceHeight = 200
+        },
+        {
+            -- HEAD/2
+            x=1,
+            y=838,
+            width=184,
+            height=186,
+
+            sourceX = 8,
+            sourceY = 3,
+            sourceWidth = 200,
+            sourceHeight = 200
+        },
+        {
+            -- HEAD/3
+            x=1,
+            y=1026,
+            width=184,
+            height=186,
+
+            sourceX = 7,
+            sourceY = 4,
+            sourceWidth = 200,
+            sourceHeight = 200
+        },
+        {
+            -- HEAD/4
             x=205,
-            y=1478,
+            y=1046,
+            width=184,
+            height=184,
+
+            sourceX = 7,
+            sourceY = 5,
+            sourceWidth = 200,
+            sourceHeight = 200
+        },
+        {
+            -- HEAD/5
+            x=205,
+            y=1232,
+            width=184,
+            height=184,
+
+            sourceX = 7,
+            sourceY = 5,
+            sourceWidth = 200,
+            sourceHeight = 200
+        },
+        {
+            -- icon/battery/1
+            x=217,
+            y=406,
             width=30,
             height=15,
 
@@ -60,8 +120,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/battery/2
-            x=205,
-            y=1495,
+            x=217,
+            y=423,
             width=30,
             height=15,
 
@@ -72,8 +132,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/battery/3
-            x=205,
-            y=1512,
+            x=217,
+            y=440,
             width=30,
             height=15,
 
@@ -84,8 +144,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/battery/4
-            x=205,
-            y=1529,
+            x=217,
+            y=457,
             width=30,
             height=15,
 
@@ -96,8 +156,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/battery/5
-            x=205,
-            y=1546,
+            x=217,
+            y=474,
             width=30,
             height=15,
 
@@ -109,7 +169,7 @@ SheetInfo.sheet =
         {
             -- icon/new battery/1
             x=1,
-            y=1682,
+            y=1400,
             width=66,
             height=30,
 
@@ -121,7 +181,7 @@ SheetInfo.sheet =
         {
             -- icon/new battery/2
             x=69,
-            y=1682,
+            y=1400,
             width=66,
             height=28,
 
@@ -132,8 +192,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/new battery/3
-            x=69,
-            y=1712,
+            x=137,
+            y=1400,
             width=66,
             height=28,
 
@@ -144,8 +204,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/new battery/4
-            x=137,
-            y=1682,
+            x=205,
+            y=1418,
             width=66,
             height=28,
 
@@ -156,8 +216,8 @@ SheetInfo.sheet =
         },
         {
             -- icon/new battery/5
-            x=137,
-            y=1712,
+            x=273,
+            y=1418,
             width=66,
             height=28,
 
@@ -168,7 +228,7 @@ SheetInfo.sheet =
         },
         {
             -- mission paper/1
-            x=1,
+            x=250,
             y=1,
             width=240,
             height=394,
@@ -179,8 +239,20 @@ SheetInfo.sheet =
             sourceHeight = 412
         },
         {
-            -- new face/1
+            -- MISSION
             x=1,
+            y=1,
+            width=247,
+            height=403,
+
+            sourceX = 10,
+            sourceY = 12,
+            sourceWidth = 267,
+            sourceHeight = 429
+        },
+        {
+            -- new face/1
+            x=250,
             y=397,
             width=214,
             height=215,
@@ -193,7 +265,7 @@ SheetInfo.sheet =
         {
             -- new face/2
             x=1,
-            y=614,
+            y=406,
             width=214,
             height=215,
 
@@ -204,8 +276,8 @@ SheetInfo.sheet =
         },
         {
             -- new face/3
-            x=1,
-            y=831,
+            x=217,
+            y=614,
             width=214,
             height=215,
 
@@ -217,7 +289,7 @@ SheetInfo.sheet =
         {
             -- new face/4
             x=1,
-            y=1048,
+            y=623,
             width=212,
             height=213,
 
@@ -228,8 +300,8 @@ SheetInfo.sheet =
         },
         {
             -- new face/5
-            x=1,
-            y=1263,
+            x=215,
+            y=831,
             width=212,
             height=213,
 
@@ -238,10 +310,82 @@ SheetInfo.sheet =
             sourceWidth = 276,
             sourceHeight = 243
         },
+        {
+            -- POWER/1
+            x=1,
+            y=1400,
+            width=66,
+            height=30,
+
+            sourceX = 18,
+            sourceY = 36,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- POWER/2
+            x=69,
+            y=1400,
+            width=66,
+            height=28,
+
+            sourceX = 18,
+            sourceY = 35,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- POWER/3
+            x=137,
+            y=1400,
+            width=66,
+            height=28,
+
+            sourceX = 18,
+            sourceY = 38,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- POWER/4
+            x=205,
+            y=1418,
+            width=66,
+            height=28,
+
+            sourceX = 18,
+            sourceY = 38,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- POWER/5
+            x=273,
+            y=1418,
+            width=66,
+            height=28,
+
+            sourceX = 18,
+            sourceY = 38,
+            sourceWidth = 100,
+            sourceHeight = 100
+        },
+        {
+            -- WIFI
+            x=466,
+            y=397,
+            width=20,
+            height=16,
+
+            sourceX = 1,
+            sourceY = 5,
+            sourceWidth = 24,
+            sourceHeight = 24
+        },
     },
     
-    sheetContentWidth = 242,
-    sheetContentHeight = 1741
+    sheetContentWidth = 492,
+    sheetContentHeight = 1453
 }
 
 SheetInfo.frameIndex =
@@ -251,22 +395,34 @@ SheetInfo.frameIndex =
     ["face/2"] = 2,
     ["face/3"] = 3,
     ["face/4"] = 4,
-    ["icon/battery/1"] = 5,
-    ["icon/battery/2"] = 6,
-    ["icon/battery/3"] = 7,
-    ["icon/battery/4"] = 8,
-    ["icon/battery/5"] = 9,
-    ["icon/new battery/1"] = 10,
-    ["icon/new battery/2"] = 11,
-    ["icon/new battery/3"] = 12,
-    ["icon/new battery/4"] = 13,
-    ["icon/new battery/5"] = 14,
-    ["mission paper/1"] = 15,
-    ["new face/1"] = 16,
-    ["new face/2"] = 17,
-    ["new face/3"] = 18,
-    ["new face/4"] = 19,
-    ["new face/5"] = 20,
+    ["HEAD/1"] = 5,
+    ["HEAD/2"] = 6,
+    ["HEAD/3"] = 7,
+    ["HEAD/4"] = 8,
+    ["HEAD/5"] = 9,
+    ["icon/battery/1"] = 10,
+    ["icon/battery/2"] = 11,
+    ["icon/battery/3"] = 12,
+    ["icon/battery/4"] = 13,
+    ["icon/battery/5"] = 14,
+    ["icon/new battery/1"] = 15,
+    ["icon/new battery/2"] = 16,
+    ["icon/new battery/3"] = 17,
+    ["icon/new battery/4"] = 18,
+    ["icon/new battery/5"] = 19,
+    ["mission paper/1"] = 20,
+    ["MISSION"] = 21,
+    ["new face/1"] = 22,
+    ["new face/2"] = 23,
+    ["new face/3"] = 24,
+    ["new face/4"] = 25,
+    ["new face/5"] = 26,
+    ["POWER/1"] = 27,
+    ["POWER/2"] = 28,
+    ["POWER/3"] = 29,
+    ["POWER/4"] = 30,
+    ["POWER/5"] = 31,
+    ["WIFI"] = 32,
 }
 
 function SheetInfo:getSheet()

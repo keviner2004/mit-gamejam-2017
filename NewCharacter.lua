@@ -175,6 +175,46 @@ Character.new = function (options)
         end
     end)
     ----]]
+
+    function character:dispatchFocusChangeEvent(hasWifi)
+        if self.dispatchEvent then
+            self:dispatchEvent({
+                name = "focus",
+                value = self.focus,
+                hasWifi = hasWifi
+            })
+        end
+    end
+
+    function character:enterFrame(event)
+        if not self.x then
+            Runtime:removeEventListener(enterFrame)
+            return
+        end
+
+        if self.map.grid[self.i][self.j].wifiCount <=0 then
+            if self.focus > 0 then
+                if self.focus - self.focusOffset > 0 then
+                    self.focus = self.focus - self.focusOffset
+                else
+                    self.focus = 0
+                end
+                self:dispatchFocusChangeEvent(false)
+            end
+        else
+            if self.focus < self.maxFocus then
+                if self.focus + self.focusOffset < self.maxFocus then
+                    self.focus = self.focus + self.focusOffset
+                else
+                    self.focus = self.maxFocus
+                end
+                self:dispatchFocusChangeEvent(true)
+            end
+        end
+    end
+
+    Runtime:addEventListener("enterFrame", character)
+
     return character
 end
 
