@@ -115,8 +115,28 @@ Character.new = function (options)
         setAnimation("idleright", frames)
     end
 
+    function character:setOpUpAnimation(frames)
+        setAnimation("opup", frames)
+    end
+
+    function character:setOpDownAnimation()
+        setAnimation("opdown", frames)
+    end
+
+    function character:setOpLeftAnimation()
+        setAnimation("opleft", frames)
+    end
+
+    function character:setOpRightAnimation()
+        setAnimation("opright", frames)
+    end
+
     function character:genAnimation()
         self.sprite = Sprite[self.spriteTag].newAnimation(self.animation)
+    end
+
+    function character:setSequence(name)
+       self.sprite:setSequence(name)
     end
 
     function character:play()
