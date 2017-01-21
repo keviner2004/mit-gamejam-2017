@@ -89,6 +89,15 @@ Character.new = function (options)
 
     function character:toPhoto()
         print("toPhoto")
+        if self.facing == "up" then
+            self:photoUp()
+        elseif self.facing == "down" then
+            self:photoDown()
+        elseif self.facing == "left" then
+            self:photoLeft()
+        elseif self.facing == "right" then
+            self:photoRight()
+        end
         sfx:play("photo")
     end
 
