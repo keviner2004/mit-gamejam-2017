@@ -183,7 +183,19 @@ Character.new = function (options)
                 })
             end
         end
+        if event.dir == "down" then
+            print("QQQQQ!!!")
+            character:walkDown()
+        elseif event.dir == "up" then
+            print("QQQQQ")
+            character:walkUp()
+        elseif event.dir == "left" then
+            character:walkLeft()
+        elseif event.dir == "right" then
+            character:walkRight()
+        end
     end)
+
     ----[[
     character:addEventListener("movedone", function(event)
         print("Facing! ", character.facing)
@@ -197,6 +209,20 @@ Character.new = function (options)
             character:idleRight()
         end
     end)
+
+    character:addEventListener("stuck", function(event)
+        print("stuck facing! ", character.facing)
+        if character.facing == "down" then
+            character:idleDown()
+        elseif character.facing == "up" then
+            character:idleUp()
+        elseif character.facing == "left" then
+            character:idleLeft()
+        elseif character.facing == "right" then
+            character:idleRight()
+        end
+    end)
+
     ----]]
 
     function character:dispatchFocusChangeEvent(hasWifi)

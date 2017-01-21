@@ -46,6 +46,12 @@ MoveObject.new = function(options)
 		})
 	end
 
+	function obj:dispathStuckEvent()
+		self:dispatchEvent({
+			name = "stuck",
+		})
+	end	
+
 	function obj:moveToPos(dir)
 		local x, y = universe:contentToLocal( self.map.grid[self.i][self.j]:localToContent(0,0) )
 		x = x + self.xOffset
@@ -62,6 +68,7 @@ MoveObject.new = function(options)
 
 	function obj:toRight()
 		if self.j == config.boardWSize or self.map.grid[self.i][self.j+1].dist < 0 or self.transLock then
+			self:dispathStuckEvent()
 			return
 		end
 		self.transLock = true
@@ -77,6 +84,7 @@ MoveObject.new = function(options)
 
 	function obj:toDown()
 		if self.i == config.boardHSize or self.map.grid[self.i+1][self.j].dist < 0 or self.transLock then
+			self:dispathStuckEvent()
 			return
 		end
 		self.transLock = true
@@ -92,6 +100,7 @@ MoveObject.new = function(options)
 
 	function obj:toLeft()
 		if self.j == 1 or self.map.grid[self.i][self.j-1].dist < 0 or self.transLock then
+			self:dispathStuckEvent()
 			return
 		end
 		self.transLock = true
@@ -107,6 +116,7 @@ MoveObject.new = function(options)
 
 	function obj:toUp()
 		if self.i == 1 or self.map.grid[self.i-1][self.j].dist < 0 or self.transLock then
+			self:dispathStuckEvent()
 			return
 		end
 		self.transLock = true
@@ -117,7 +127,7 @@ MoveObject.new = function(options)
 		self.map.grid[self.i][self.j].obj = self
 		self.map.grid[self.i][self.j].dist = self.map.grid[self.i][self.j].dist -1
 		-- move
-		self:moveToPos("Up")
+		self:moveToPos("up")
 	end
 
 	function obj:isUnderWifi()
