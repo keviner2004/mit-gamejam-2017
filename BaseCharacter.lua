@@ -259,6 +259,9 @@ Character.new = function (options)
             time = 1000
         end
         timer.performWithDelay(time, function()
+            if not self.x then
+                return
+            end
             if self.facing == "up" then
                 self:idleUp()
             elseif self.facing == "down" then

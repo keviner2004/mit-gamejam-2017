@@ -112,14 +112,20 @@ function scene:show( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-    
+        Runtime:addEventListener("key", self)
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
  
     end
 end
- 
+
+function scene:key(event)
+    if event.keyName == "enter" and event.phase == "up" then
+        sfx:stop()
+        composer.gotoScene("scenes.game")
+    end
+end
  
 -- hide()
 function scene:hide( event )
@@ -129,10 +135,10 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
- 
+        Runtime:removeEventListener("key", self)
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
- 
+        
     end
 end
  
