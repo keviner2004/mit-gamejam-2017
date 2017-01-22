@@ -1,5 +1,5 @@
 local composer = require( "composer" )
- 
+local Sprite = require("libs.Sprite")
 local scene = composer.newScene()
  
 -- -----------------------------------------------------------------------------------
@@ -44,13 +44,25 @@ function scene:show( event )
                 onComplete = function ()
                     if flash.removeSelf then
                         flash:removeSelf()
+                        local photo
+                        if event.params and event.params.photoSelf then
+                            photo = Sprite["objects"].new("photo/2")
+                        else
+                            photo = Sprite["objects"].new("photo/1")
+                        end
+                        photo.x = display.contentCenterX
+                        photo.y = display.contentCenterY
+                        photo.xScale = 2
+                        photo.yScale = 2
+                        sceneGroup:insert(photo)
+                        timer.performWithDelay(500, function()
+                            if photo.removeSelf then
+                                photo:removeSelf()
+                            end
+                        end)
                     end
                 end
         })
-
-        if event.params and event.params.photoSelf then
-        else
-        end
 
     end
 end

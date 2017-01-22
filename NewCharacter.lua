@@ -4,6 +4,7 @@ local sfx = require("libs.sfx")
 
 local config = require("GameConfig")
 local composer = require("composer")
+local Sprite = require("libs.Sprite")
 local Character = {}
 local BaseCharacter = require("BaseCharacter")
 
@@ -129,8 +130,19 @@ Character.new = function (options)
     end
 
     function character:toShare()
-       print("toShare")
-       sfx:play("share")
+        for i = 1, 20 do
+            local bubble = Sprite["objects"].new("facebook reaction/"..tostring(math.random(1,4)))
+            self:insert(bubble)
+            bubble.y = -self.height/2
+            transition.to(bubble, {time = 500, x = math.random(-self.width, self.width), y = -self.height*2, onComplete = function()
+                if bubble.removeSelf then
+                    bubble:removeSelf()
+                end
+            end})
+        end
+
+        print("toShare")
+        sfx:play("share")
     end
 
     function character:toCharge()
@@ -272,6 +284,10 @@ Character.new = function (options)
                 self:dispatchFocusChangeEvent(true)
             end
         end
+    end
+
+    function character:bubbleUp()
+        
     end
 
     Runtime:addEventListener("enterFrame", character)
