@@ -6,6 +6,8 @@ PhotoSpot.new = function(options)
 	options.dist = 0
 	local spot = MoveObject.new(options)
 
+    spot.taked = false
+
 	local rect = Sprite["ui"].newAnimation({
         {
             frames = {

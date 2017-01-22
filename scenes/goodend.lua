@@ -48,6 +48,12 @@ function scene:show( event )
         self.quote.y = self.head.y
         self.view:insert(self.quote)
 
+        if event.params then
+            self.numPhotos = event.params.numPhotos
+            self.numSelfPhotos = event.params.numSelfPhotos
+            self.numShare = event.params.numShare
+        end
+        print(self.numPhotos, self.numSelfPhotos, self.numShare)
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen

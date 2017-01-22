@@ -192,6 +192,7 @@ function scene:show( event )
             map = self.map,
             i = 7,
             j = 10,
+            yOffset = -40,
         }):addEventListener( "move", reInsert)
 
         FatGuy.new({
@@ -199,6 +200,7 @@ function scene:show( event )
             map = self.map,
             i = 3,
             j = 8,
+            yOffset = -40,
         }):addEventListener( "move", reInsert)
 
         
@@ -207,6 +209,7 @@ function scene:show( event )
             map = self.map,
             i = 5,
             j = 4,
+            yOffset = -40,
         }):addEventListener( "move", reInsert)
         
         PhotoSpot.new({
@@ -316,6 +319,11 @@ function scene:gotoBadEnd()
     composer.gotoScene("scenes.badend", {
         effect = "fade",
         time = 1000,
+        params = {
+            numPhotos = self.numPhotos,
+            numSelfPhotos = self.numSelfPhotos,
+            numShare = self.numShare,
+        },
     })
 end
 
@@ -323,6 +331,11 @@ function scene:gotoGoodEnd()
     composer.gotoScene("scenes.goodend", {
         effect = "fade",
         time = 1000,
+        params = {
+            numPhotos = self.numPhotos,
+            numSelfPhotos = self.numSelfPhotos,
+            numShare = self.numShare,
+        },
     })
 end
 
@@ -363,7 +376,7 @@ function scene:action( event )
     elseif event.phase == "active" then
         local bg = self.map.grid[self.char.i][self.char.j].bg
         if bg then
-            bg.taked = false
+            bg.taked = true
             if bg.tag == "photo" then
                 if event.dir == "e" then
                     if not bg.taked then
