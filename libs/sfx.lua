@@ -16,7 +16,7 @@ sfx.channel = {
 }
 
 sfx.bgm = {
-  handle = audio.loadStream( "sounds/bgm.mp3" ),
+  handle = audio.loadSound( "sounds/bgm.mp3" ),
   channel = sfx.CHANNEL_BG
 }
 

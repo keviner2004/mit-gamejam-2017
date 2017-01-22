@@ -3,7 +3,7 @@ local Sprite = require("libs.Sprite")
 local config = require("GameConfig")
 
 local scene = composer.newScene()
- 
+local sfx = require("libs.sfx")
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -54,6 +54,22 @@ function scene:show( event )
             self.numShare = event.params.numShare
         end
         print(self.numPhotos, self.numSelfPhotos, self.numShare)
+
+        self.restartBtn = display.newText({
+            text = "Restart",
+            font = config.font,
+            fontSize = config.fontSize,
+        })
+
+        self.restartBtn.x = display.contentCenterX
+        self.restartBtn.y = display.contentWidth/2
+        
+        self.restartBtn:addEventListener("tap", function(event)
+            sfx:stop()
+            composer.gotoScene("scenes.game")
+        end)
+
+        self.view:insert(self.restartBtn)
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
