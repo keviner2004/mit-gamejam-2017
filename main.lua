@@ -12,7 +12,7 @@ Sprite.addSheet("event", "sprites/event.png", "sprites.event")
 Sprite.addSheet("enemy", "sprites/enemy.png", "sprites.enemy")
 --load main scene
 local composer = require("composer")
-
-composer.gotoScene("scenes.game")
+composer.gotoScene("scenes.start")
+--composer.gotoScene("scenes.game")
 --composer.gotoScene("scenes.badend")
 --composer.gotoScene("scenes.goodend")
