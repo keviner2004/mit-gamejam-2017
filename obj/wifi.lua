@@ -210,6 +210,7 @@ Wifi.new = function(options)
 		print("showGrid: ", #self.affectedAreas)
 		for i = 1, #self.affectedAreas do
 			local newi, newj, idir
+			local back = false
 			if self.affectedAreas[i] == Wifi.AREA_LEFTTOP then
 				newi = self.i - 1
 				newj =  self.j - 1
@@ -218,6 +219,7 @@ Wifi.new = function(options)
 				newi = self.i - 1
 				newj = self.j
 				idir = 1
+				back = true
 			elseif self.affectedAreas[i] == Wifi.AREA_RIGHTTOP then
 				newi = self.i - 1
 				newj = self.j + 1
@@ -250,6 +252,11 @@ Wifi.new = function(options)
 				indicator:setDir(idir)
 				indicator.alpha = 0.8
 				self.indicatorGroup:insert(indicator)
+				if back then
+					self.indicatorGroup:toBack()
+				else
+					self.indicatorGroup:toFront()
+				end
 				--indicator.x = x
 				--indicator.y = y
 			end
