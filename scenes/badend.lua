@@ -1,5 +1,5 @@
 local composer = require( "composer" )
-
+local sfx = require("libs.sfx")
 local config = require("GameConfig")
 
 local scene = composer.newScene()
@@ -21,7 +21,35 @@ function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
- 
+    self.head = display.newImage('res/badend.png')
+    self.head.x = config.contentCenterX - self.head.width
+    self.head.y = config.contentCenterY
+    self.head.xScale = 2
+    self.head.yScale = 2
+    self.view:insert(self.head)
+
+    self.quote = display.newText({
+        text = "勝敗乃兵家常事，\n大俠請重新來過。",
+        font = config.font,
+        fontSize = config.fontSize,
+    })
+    self.quote.x = self.head.x + (self.quote.width+self.head.width+200)/2
+    self.quote.y = self.head.y
+    self.view:insert(self.quote)
+
+    self.restartBtn = display.newText({
+        text = "Restart",
+        font = config.font,
+        fontSize = config.fontSize,
+    })
+
+    self.restartBtn.x = display.contentCenterX
+    self.restartBtn.y = display.contentWidth/2
+    self.restartBtn:addEventListener("tap", function(event)
+        sfx:stop()
+        composer.gotoScene("scenes.game")
+    end)
+    self.view:insert(self.restartBtn)
 end
  
  
@@ -32,21 +60,6 @@ function scene:show( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-        self.head = display.newImage('res/badend.png')
-        self.head.x = config.contentCenterX - self.head.width
-        self.head.y = config.contentCenterY
-        self.head.xScale = 2
-        self.head.yScale = 2
-        self.view:insert(self.head)
-
-        self.quote = display.newText({
-            text = "勝敗乃兵家常事，\n大俠請重新來過。",
-            font = config.font,
-            fontSize = config.fontSize,
-        })
-        self.quote.x = self.head.x + (self.quote.width+self.head.width+200)/2
-        self.quote.y = self.head.y
-        self.view:insert(self.quote)
 
 
     elseif ( phase == "did" ) then
