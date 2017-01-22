@@ -15,3 +15,4 @@ local composer = require("composer")
 
 composer.gotoScene("scenes.game")
 --composer.gotoScene("scenes.badend")
+--composer.gotoScene("scenes.goodend")

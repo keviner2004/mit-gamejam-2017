@@ -40,6 +40,7 @@ local scene = composer.newScene()
 function scene:create( event )
  
     local sceneGroup = self.view
+
     -- Code here runs when the scene is first created but has not yet appeared on screen
  
 end
@@ -53,6 +54,10 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        self.numPhotos = 0
+        self.numSelfPhotos = 0
+        self.numShare = 0
+
         config.currentLevel = 1
 
         self.universe = display.newGroup()
@@ -358,10 +363,17 @@ function scene:action( event )
     elseif event.phase == "active" then
         local bg = self.map.grid[self.char.i][self.char.j].bg
         if bg then
+            bg.taked = false
             if bg.tag == "photo" then
                 if event.dir == "e" then
+                    if not bg.taked then
+                        self.numPhotos = self.numPhotos + 1
+                    end
                     self.char:toPhoto()
                 elseif event.dir == "q" then
+                    if not bg.taked then
+                        self.numSelfPhotos = self.numSelfPhotos + 1
+                    end
                     self.char:toSelfPhoto()
                 end 
                 return
@@ -369,6 +381,9 @@ function scene:action( event )
                 self.char:toCharge()
                 return
             elseif bg.tag == "share" then
+                if not bg.taked then
+                    self.numShare = self.numShare + 1
+                end
                 self.char:toShare()
                 return
             end
