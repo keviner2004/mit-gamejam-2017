@@ -13,6 +13,6 @@ Sprite.addSheet("enemy", "sprites/enemy.png", "sprites.enemy")
 --load main scene
 local composer = require("composer")
 
-composer.gotoScene("scenes.game")
---composer.gotoScene("scenes.badend")
+--composer.gotoScene("scenes.game")
+composer.gotoScene("scenes.badend")
 --composer.gotoScene("scenes.goodend")

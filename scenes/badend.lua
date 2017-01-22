@@ -21,12 +21,18 @@ function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
+    self.background = display.newImage('res/failed.png')    
     self.head = display.newImage('res/badend.png')
     self.head.x = config.contentCenterX - self.head.width
     self.head.y = config.contentCenterY
     self.head.xScale = 2
     self.head.yScale = 2
+    self.background.x = display.contentCenterX
+    self.background.y = display.contentCenterY
+    
     self.view:insert(self.head)
+    self.view:insert(self.background)
+    
 
     self.quote = display.newText({
         text = "勝敗乃兵家常事，\n大俠請重新來過。",
