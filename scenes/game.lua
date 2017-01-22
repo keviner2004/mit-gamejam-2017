@@ -328,6 +328,7 @@ function scene:gotoBadEnd()
 end
 
 function scene:gotoGoodEnd()
+    print("Go to good end ", self.numPhotos, self.numSelfPhotos, self.numShare)
     composer.gotoScene("scenes.goodend", {
         effect = "fade",
         time = 1000,
@@ -376,16 +377,17 @@ function scene:action( event )
     elseif event.phase == "active" then
         local bg = self.map.grid[self.char.i][self.char.j].bg
         if bg then
-            bg.taked = true
             if bg.tag == "photo" then
                 if event.dir == "e" then
                     if not bg.taked then
                         self.numPhotos = self.numPhotos + 1
+                        bg.taked = true
                     end
                     self.char:toPhoto()
                 elseif event.dir == "q" then
                     if not bg.taked then
                         self.numSelfPhotos = self.numSelfPhotos + 1
+                        bg.taked = true
                     end
                     self.char:toSelfPhoto()
                 end 
@@ -396,6 +398,7 @@ function scene:action( event )
             elseif bg.tag == "share" then
                 if not bg.taked then
                     self.numShare = self.numShare + 1
+                    bg.taked = true
                 end
                 self.char:toShare()
                 return

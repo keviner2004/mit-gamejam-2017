@@ -42,7 +42,9 @@ function scene:show( event )
                 time = 200,
                 alpha = 0,
                 onComplete = function ()
-                    flash:removeSelf()
+                    if flash.removeSelf then
+                        flash:removeSelf()
+                    end
                 end
         })
 
