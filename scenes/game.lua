@@ -248,7 +248,7 @@ function scene:show( event )
         })
         self.universe:insert(self.remainTimeText)
         self.remainTimeText.y = self.remainTimeText.y - config.contentHeight/2 + self.map.gridH/2
-        self.remainTime = config.timeLimit
+        self.remainTime = 300
 
         --place ui
         local battery = Battery.new()
@@ -281,6 +281,7 @@ function scene:show( event )
 
         reInsert()
 
+        Runtime:addEventListener( "enterFrame", scene )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
         sfx:play("bgm", {loops=-1})
@@ -443,6 +444,6 @@ scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -- -----------------------------------------------------------------------------------
-Runtime:addEventListener( "enterFrame", scene )
+
 
 return scene

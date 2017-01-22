@@ -18,7 +18,7 @@ MissionPaper.new = function()
     	local t = display.newText({
     		text = text,
     		font = config.font,
-    		fontSize = 22,
+    		fontSize = 20,
     		width = sprite.width -20,
     		height = 0,
     	})
